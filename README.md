@@ -1,7 +1,7 @@
 # Чат
 
 * Макет в Figma [https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0](https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0)
-* Опубликованное приложение в Netify:
+* Опубликованное приложение в Netify: https://mchat-app-yandex.netlify.app/
 
 ## Описание приложения
 
