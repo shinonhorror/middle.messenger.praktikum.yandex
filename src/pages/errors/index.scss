@@ -1,0 +1,23 @@
+.message {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 280px;
+	text-align: center;
+	&__code {
+		font-size: 40px;
+		line-height: 40px;
+		color: #1e1e1e;
+	}
+	&__text {
+		font-size: 20px;
+		line-height: 20px;
+		margin-top: 20px;
+		margin-bottom: 69px;
+	}
+	&__link {
+		color: #3369f3;
+		font-size: 11px;
+		line-height: 11px;
+	}
+}
