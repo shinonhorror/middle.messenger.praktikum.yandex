@@ -32,3 +32,9 @@ npm run build
 ```
 npm run start
 ```
+
+Запуск проект в режиме разработки 
+
+```
+npm run dev
+```
