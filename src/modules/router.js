@@ -1,10 +1,10 @@
-import routes from "./templatorPages"
+import routes from "./templatorPages";
 
 const resolveRoute = (route) => {
 	try {
 		return routes[route];
 	} catch (e) {
-		console.log(e)
+		console.log(e);
 		throw new Error(`Route ${route} not found`);
 	}
 };

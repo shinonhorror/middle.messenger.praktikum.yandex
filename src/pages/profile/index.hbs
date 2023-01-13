@@ -1,13 +1,15 @@
 <div class="profile">
-			<div class="profile__back">
-				<a class="profile__back-link" href={{chat}}>Back</a>
+	<div class="profile__back">
+		<a class="profile__back-link" href={{chat}}>Back</a>
+	</div>
+	<form class="profile__desc" action="">
+		<img class="profile__desc-avatar" src={{avatar}} alt="avatar" />
+		<h2 class="profile__desc-name">Иван</h2>
+		<form class="profile__desc-form" action="">
+			{{{input}}}
+			<div class="profile__desc__btn-group">
+				{{{button}}}
 			</div>
-			<div class="profile__desc">
-				<img class="profile__desc-avatar" src={{avatar}} alt="avatar" />
-				<h2 class="profile__desc-name">Иван</h2>
-				{{{input}}}
-				<div class="profile__desc__btn-group">
-					{{{button}}}	
-				</div>
-			</div>
-		</div>
+		</form>
+	</form>
+</div>

@@ -3,6 +3,7 @@
 @import "../pages/chat/index.scss";
 @import "../pages/errors/index.scss";
 @import "../pages/profile/index.scss";
+@import "../style/_vars";
 
 body,
 h1,
@@ -36,7 +37,7 @@ ul[class] {
 	margin: 0 auto;
 	width: 340px;
 	height: 100%;
-	background: #ffffff;
+	background: $base-white;
 	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
 	border-radius: 12px;
 	margin-top: 135px;
@@ -63,7 +64,7 @@ ul[class] {
 			font-size: 16px;
 			line-height: 13px;
 			&:hover {
-				color: #3369f3;
+				color: $button;
 			}
 		}
 	}
@@ -71,7 +72,7 @@ ul[class] {
 
 .button {
 	&__base {
-		background: #3369f3;
+		background: $button;
 		border-radius: 8px;
 		height: 37px;
 		cursor: pointer;
@@ -79,12 +80,12 @@ ul[class] {
 		margin-bottom: 14px;
 		margin-top: 50px;
 		a {
-			color: #ffffff;
+			color: $base-white;
 		}
 	}
 	&__link {
 		text-align: center;
-		color: #3369f3;
+		color: $button;
 		font-size: 11px;
 		line-height: 11px;
 	}
@@ -92,10 +93,10 @@ ul[class] {
 		text-align: left;
 		border: none;
 		background: none;
-		border-bottom: 1px solid #eaeaea;
+		border-bottom: 1px solid $border;
 		padding: 10px 0;
 		&-link {
-			color: #3369f3;
+			color: $button;
 		}
 		&-exit {
 			text-align: left;
@@ -104,7 +105,7 @@ ul[class] {
 			padding: 10px 0;
 			border: none;
 			a {
-				color: #ff0000;
+				color: $exit-link;
 			}
 		}
 	}

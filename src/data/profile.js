@@ -39,7 +39,7 @@ const inputDataProfile = {
 		type: "text",
 		value: "Иван",
 		disabled: "disabled",
-		inputName: "login",
+		inputName: "display_name",
 	},
 	phone: {
 		title: "Телефон",

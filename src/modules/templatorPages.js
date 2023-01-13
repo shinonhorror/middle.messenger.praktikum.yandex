@@ -4,7 +4,7 @@ let routes = {};
 let templates = {};
 
 const route = (path, template) => {
-	 if (typeof template === "string") {
+	if (typeof template === "string") {
 		return (routes[path] = templates[template]);
 	} else {
 		return;
