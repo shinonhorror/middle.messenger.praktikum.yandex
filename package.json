@@ -18,12 +18,15 @@
 	},
 	"targets": {
 		"default": {
-			"sourceMap": false
+			"sourceMap": false,
+			"engines": {
+				"browsers": ">=50%"
+			}
 		}
 	},
-	"browserslist": [
-		"> 5%"
-	],
+	"engines": {
+		"node": ">=16.0"
+	},
 	"dependencies": {
 		"@parcel/transformer-sass": "^2.8.2",
 		"handlebars": "^4.7.7"
