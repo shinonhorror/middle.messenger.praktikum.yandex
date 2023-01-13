@@ -40,3 +40,5 @@ npm run start
 ```
 npm run dev
 ```
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0589535f-ff18-43b2-9d5f-e84df8d13eaa/deploy-status)](https://app.netlify.com/sites/mchat-app-yandex/deploys)
+
