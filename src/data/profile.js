@@ -50,22 +50,24 @@ const inputDataProfile = {
 	},
 };
 
+const a = "button__profile exit";
+
 const linkButton = {
 	set: {
-		buttonClass: "profile__desc__btn",
-		linkClass: "profile__desc__btn-link",
+		buttonClass: "button__profile",
+		linkClass: "button__profile-link",
 		href: "#/settings",
 		title: "Изменить данные",
 	},
 	passwords: {
-		buttonClass: "profile__desc__btn",
-		linkClass: "profile__desc__btn-link",
+		buttonClass: "button__profile",
+		linkClass: "button__profile-link",
 		href: "#/password",
 		title: "Изменить пароль",
 	},
 	exit: {
-		buttonClass: "profile__desc__btn",
-		linkClass: "profile__desc__btn-link",
+		buttonClass: "button__profile-exit",
+		linkClass: "button__profile-link",
 		href: "#/login",
 		title: "Выйти",
 	},

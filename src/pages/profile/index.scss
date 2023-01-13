@@ -54,21 +54,5 @@
 			flex-direction: column;
 			gap: 10px;
 		}
-		&__btn {
-			text-align: left;
-			border: none;
-			background: none;
-			border-bottom: 1px solid #eaeaea;
-			padding: 10px 0;
-			&-link {
-				color: #3369f3;
-			}
-			&.exit {
-				border: none;
-				a {
-					color: #ff0000;
-				}
-			}
-		}
 	}
 }

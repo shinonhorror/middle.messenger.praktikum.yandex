@@ -11,8 +11,8 @@ const inputDataPassword = {
 	},
 	password: {
 		title: "Новый пароль",
-		type: "oldPassword",
-		inputName: "password",
+		type: "password",
+		inputName: "oldPassword",
 	},
 	newPassword: {
 		title: "Повторите новый пароль",

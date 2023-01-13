@@ -27,7 +27,7 @@ const loginPage = () => {
 		auth: "#/auth",
 		chat: "#/chat",
 		button: button({
-			buttonClass: "login__btn-auth",
+			buttonClass: "button__base",
 			href: "#/chat",
 			title: "Войти",
 		}),
@@ -39,7 +39,7 @@ const authPage = () => {
 		login: "#/login",
 		chat: "#/chat",
 		button: button({
-			buttonClass: "login__btn-auth",
+			buttonClass: "button__base",
 			href: "#/chat",
 			title: "Зарегестрироваться",
 		}),
@@ -70,7 +70,7 @@ const changeSettings = () => {
 		avatar: avatar,
 		input: dataProfile.dataProfile,
 		button: button({
-			buttonClass: "login__btn-auth",
+			buttonClass: "button__base",
 			href: "#/profile",
 			title: "Сохранить",
 		}),
@@ -85,7 +85,7 @@ const changePassword = () => {
 		avatar: avatar,
 		input: dataPassword,
 		button: button({
-			buttonClass: "login__btn-auth",
+			buttonClass: "button__base",
 			href: "#/profile",
 			title: "Сохранить",
 		}),

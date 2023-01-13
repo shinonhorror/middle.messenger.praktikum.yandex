@@ -68,3 +68,44 @@ ul[class] {
 		}
 	}
 }
+
+.button {
+	&__base {
+		background: #3369f3;
+		border-radius: 8px;
+		height: 37px;
+		cursor: pointer;
+		border: none;
+		margin-bottom: 14px;
+		margin-top: 50px;
+		a {
+			color: #ffffff;
+		}
+	}
+	&__link {
+		text-align: center;
+		color: #3369f3;
+		font-size: 11px;
+		line-height: 11px;
+	}
+	&__profile {
+		text-align: left;
+		border: none;
+		background: none;
+		border-bottom: 1px solid #eaeaea;
+		padding: 10px 0;
+		&-link {
+			color: #3369f3;
+		}
+		&-exit {
+			text-align: left;
+			border: none;
+			background: none;
+			padding: 10px 0;
+			border: none;
+			a {
+				color: #ff0000;
+			}
+		}
+	}
+}
