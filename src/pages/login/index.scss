@@ -1,0 +1,22 @@
+@import "../../style/_vars";
+
+.login {
+	display: flex;
+	flex-direction: column;
+	padding-left: 30px;
+	padding-right: 30px;
+	&__title {
+		text-align: center;
+		margin-bottom: 40px;
+		color: $base-text;
+		font-size: 20px;
+		line-height: 20px;
+	}
+	&__input {
+		border: none;
+		border-bottom: 1px solid $button;
+		outline: none;
+		margin-top: 16px;
+		padding: 5px;
+	}
+}

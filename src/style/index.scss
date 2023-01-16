@@ -1,0 +1,112 @@
+@import "../pages/signin/index.scss";
+@import "../pages/login/index.scss";
+@import "../pages/chat/index.scss";
+@import "../pages/errors/index.scss";
+@import "../pages/profile/index.scss";
+@import "../style/_vars";
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+	margin: 0;
+	font-size: inherit;
+	font-family: "Inter", sans-serif;
+	font-style: normal;
+	font-weight: 500;
+}
+a {
+	text-decoration: none;
+}
+ul[class] {
+	list-style: none;
+}
+.container {
+	margin: 0 auto;
+	width: 340px;
+	height: 100%;
+	background: $base-white;
+	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+	border-radius: 12px;
+	margin-top: 135px;
+	padding-top: 50px;
+	padding-bottom: 30px;
+}
+
+.pages {
+	display: flex;
+	flex-direction: column;
+	&__title {
+		padding-bottom: 40px;
+		text-align: center;
+		color: #1e1e1e;
+		font-size: 20px;
+		line-height: 20px;
+	}
+	&__list {
+		&-item {
+			margin-top: 10px;
+		}
+		&-link {
+			color: #1e1e1e;
+			font-size: 16px;
+			line-height: 13px;
+			&:hover {
+				color: $button;
+			}
+		}
+	}
+}
+
+.button {
+	&__base {
+		background: $button;
+		border-radius: 8px;
+		height: 37px;
+		cursor: pointer;
+		border: none;
+		margin-bottom: 14px;
+		margin-top: 50px;
+		a {
+			color: $base-white;
+		}
+	}
+	&__link {
+		text-align: center;
+		color: $button;
+		font-size: 11px;
+		line-height: 11px;
+	}
+	&__profile {
+		text-align: left;
+		border: none;
+		background: none;
+		border-bottom: 1px solid $border;
+		padding: 10px 0;
+		&-link {
+			color: $button;
+		}
+		&-exit {
+			text-align: left;
+			border: none;
+			background: none;
+			padding: 10px 0;
+			border: none;
+			a {
+				color: $exit-link;
+			}
+		}
+	}
+}
