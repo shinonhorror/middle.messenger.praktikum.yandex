@@ -1,4 +1,4 @@
-@import "../layouts/signin/index.scss";
+@import "../layouts/signin/index";
 @import "../layouts/login/index";
 @import "../layouts/chat/index";
 @import "../layouts/errors/index";
@@ -87,6 +87,7 @@ ul[class] {
     margin-bottom: 14px;
     margin-top: 50px;
     width: 100%;
+
     a {
       color: $base-white;
     }
@@ -109,6 +110,7 @@ ul[class] {
     padding: 10px 0;
     display: block;
     width: 100%;
+
     &-link {
       color: $button;
     }
@@ -124,11 +126,4 @@ ul[class] {
       }
     }
   }
-}
-.error_span {
-  font-weight: 400;
-font-size: 8px;
-line-height: 8px;
-color: #FF2F2F;
-margin-top: 7px;
 }
