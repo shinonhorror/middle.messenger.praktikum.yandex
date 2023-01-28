@@ -1,9 +1,17 @@
-import tpl from './nav.ts';
+import tpl from './nav';
 
 import Component from '../../services/Component';
 
-export default class Nav extends Component {
-  render(): string {
+type NavType = {
+  login: string;
+  auth: string;
+  chat: string;
+  profile: string;
+  error: string;
+  notFound: string;
+};
+export default class Nav extends Component<NavType> {
+  render(): DocumentFragment {
     return this.compile(tpl);
   }
 }

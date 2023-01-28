@@ -2,16 +2,11 @@ import { v4 as uuidv4 } from 'uuid';
 import * as Handlebars from 'handlebars';
 import EventBus from './EventBus';
 
-type Meta = {
-  tagName: string;
-  props: Props;
-};
-
-type Props<T extends Record<string, unknown> = any> = {
-  events?: Record<string, () => void>;
+type Props<T = { [x: string]: unknown }> = {
+  events?: { [x: string]: (e: InputEvent | SubmitEvent) => void };
 } & T;
 
-export default class Component<T extends Record<string, unknown> = Record<string, unknown>> {
+export default class Component<T = { [x: string]: unknown }> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -29,7 +24,10 @@ export default class Component<T extends Record<string, unknown> = Record<string
 
   _element: HTMLElement;
 
-  _meta: Meta;
+  _meta: {
+    tagName: string;
+    props: Props<T>;
+  };
 
   _setUpdate: boolean = false;
 
@@ -130,7 +128,7 @@ export default class Component<T extends Record<string, unknown> = Record<string
   private _makePropsProxy(props: Props<T>) {
     return new Proxy(props, {
       get(target, prop: string) {
-        const value = target[prop as string];
+        const value = target[prop as keyof Props<T>];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set: (target, prop, val) => {
@@ -221,7 +219,8 @@ export default class Component<T extends Record<string, unknown> = Record<string
     children: Record<string, Component>;
   } {
     const children: Record<string, Component> = {};
-    const props = {} as Record<string, unknown>;
+    const props:Record<string, unknown> = {};
+
     (<any>Object).entries(propsAndChilds).forEach(([key, value]: any) => {
       if (value instanceof Component) {
         children[key] = value;
@@ -229,7 +228,6 @@ export default class Component<T extends Record<string, unknown> = Record<string
         props[key] = value;
       }
     });
-
     return { children, props: props as Props<T> };
   }
 

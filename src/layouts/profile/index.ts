@@ -2,8 +2,17 @@ import tpl from './profile';
 
 import Component from '../../services/Component';
 
-export default class Profile extends Component {
-  render() {
+type ProfileType = {
+  chat: string;
+  login?: string;
+  settings?: string;
+  password?:string;
+  avatar: any;
+  input: Component;
+  button: Component;
+};
+export default class Profile extends Component<ProfileType> {
+  render(): DocumentFragment {
     return this.compile(tpl);
   }
 

@@ -1,8 +1,14 @@
 import tpl from './login';
 import Component from '../../services/Component';
 
-export default class Login extends Component {
-  render() {
+type LoginType = {
+  title: string;
+  auth: string;
+  input: Component;
+  button: Component;
+};
+export default class Login extends Component<LoginType> {
+  render(): DocumentFragment {
     return this.compile(tpl);
   }
 
@@ -11,7 +17,9 @@ export default class Login extends Component {
       return;
     }
     this._element.querySelectorAll('input').forEach((a) => {
-      const { focus, blur, input } = this._props.events as { [key:string]: ()=>void };
+      const { focus, blur, input } = this._props.events as {
+        [key: string]: () => void;
+      };
       a.addEventListener('focus', focus);
       a.addEventListener('blur', blur);
       a.addEventListener('input', input);

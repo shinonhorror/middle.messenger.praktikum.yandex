@@ -1,4 +1,4 @@
-const inputDataLogin: { [key: string]: unknown } = {
+const inputDataLogin: { [key: string]: Array<{ [value: string]: string }> } = {
   data: [
     {
       inputClass: 'login__input',

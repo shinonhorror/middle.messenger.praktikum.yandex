@@ -1,4 +1,4 @@
-const inputDataSignin: { [key: string]: unknown } = {
+const inputDataSignin: { [key: string]: Array<{ [value: string]: string }> } = {
   data: [
     {
       inputClass: 'signin__input',
@@ -13,31 +13,36 @@ const inputDataSignin: { [key: string]: unknown } = {
       placeholder: 'Логин',
       inputName: 'login',
       required: 'required',
-    }, {
+    },
+    {
       inputClass: 'signin__input',
       type: 'text',
       placeholder: 'Имя',
       inputName: 'first_name',
       required: 'required',
-    }, {
+    },
+    {
       inputClass: 'signin__input',
       type: 'text',
       placeholder: 'Фамилия',
       inputName: 'second_name',
       required: 'required',
-    }, {
+    },
+    {
       inputClass: 'signin__input',
       type: 'phone',
       placeholder: 'Телефон',
       inputName: 'phone',
       required: 'required',
-    }, {
+    },
+    {
       inputClass: 'signin__input',
       type: 'password',
       placeholder: 'Пароль',
       inputName: 'password',
       required: 'required',
-    }, {
+    },
+    {
       inputClass: 'signin__input',
       type: 'password',
       placeholder: 'Повторите',

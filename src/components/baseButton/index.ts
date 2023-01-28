@@ -2,8 +2,13 @@ import tpl from './button';
 
 import Component from '../../services/Component';
 
-export default class BaseButton extends Component {
-  render() {
+type BaseButtonType = {
+  buttonClass: string;
+  href: string;
+  title: string;
+};
+export default class BaseButton extends Component<BaseButtonType> {
+  render(): DocumentFragment {
     return this.compile(tpl);
   }
 }

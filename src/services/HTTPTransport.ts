@@ -6,10 +6,10 @@ enum METHODS {
 }
 
 interface Options {
-  method: string,
-  timeout?: number,
-  data?: object,
-  headers?: { [key:string]: string }
+  method: string;
+  timeout?: number;
+  data?: { [key: string]: any };
+  headers?: { [key: string]: string };
 }
 
 type HTTP = (
@@ -71,7 +71,7 @@ export default class HTTPTransport {
       if (isGet || !data) {
         xhr.send();
       } else {
-        xhr.send(data as XMLDocument);
+        xhr.send(data as Document);
       }
     });
   };

@@ -2,8 +2,14 @@ import tpl from './signin';
 
 import Component from '../../services/Component';
 
-export default class Signin extends Component {
-  render(): string {
+type SigninType = {
+  title: string;
+  login: string;
+  input: Component;
+  button: Component;
+};
+export default class Signin extends Component<SigninType> {
+  render(): DocumentFragment {
     return this.compile(tpl);
   }
 

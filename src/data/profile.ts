@@ -1,4 +1,4 @@
-export const dataSettings: { [key: string]: unknown } = {
+export const dataSettings: { [key: string]: Array<{ [value: string]: string }> } = {
   data: [
     {
       itemClass: 'profile__desc__item',
@@ -8,7 +8,8 @@ export const dataSettings: { [key: string]: unknown } = {
       type: 'email',
       value: 'pochta@yandex.ru',
       inputName: 'email',
-    }, {
+    },
+    {
       itemClass: 'profile__desc__item',
       labelClass: 'profile__desc__item-title',
       inputClass: 'profile__desc__item-value',
@@ -16,7 +17,8 @@ export const dataSettings: { [key: string]: unknown } = {
       type: 'text',
       value: 'ivanivanov',
       inputName: 'login',
-    }, {
+    },
+    {
       itemClass: 'profile__desc__item',
       labelClass: 'profile__desc__item-title',
       inputClass: 'profile__desc__item-value',
@@ -24,7 +26,8 @@ export const dataSettings: { [key: string]: unknown } = {
       type: 'text',
       value: 'Иван',
       inputName: 'first_name',
-    }, {
+    },
+    {
       itemClass: 'profile__desc__item',
       labelClass: 'profile__desc__item-title',
       inputClass: 'profile__desc__item-value',
@@ -32,7 +35,8 @@ export const dataSettings: { [key: string]: unknown } = {
       type: 'text',
       value: 'Иванов',
       inputName: 'second_name',
-    }, {
+    },
+    {
       itemClass: 'profile__desc__item',
       labelClass: 'profile__desc__item-title',
       inputClass: 'profile__desc__item-value',
@@ -40,7 +44,8 @@ export const dataSettings: { [key: string]: unknown } = {
       type: 'text',
       value: 'Иван',
       inputName: 'display_name',
-    }, {
+    },
+    {
       itemClass: 'profile__desc__item',
       labelClass: 'profile__desc__item-title',
       inputClass: 'profile__desc__item-value',
@@ -52,26 +57,27 @@ export const dataSettings: { [key: string]: unknown } = {
   ],
 };
 
-export const buttonProfile: { [key: string]: unknown } = {
+export const buttonProfile: { [key: string]: Array<{ [value: string]: string }> } = {
   data: [
     {
       buttonClass: 'button__profile',
       linkClass: 'button__profile-link',
       href: '#/settings',
       title: 'Изменить данные',
-    }, {
+    },
+    {
       buttonClass: 'button__profile',
       linkClass: 'button__profile-link',
       href: '#/password',
       title: 'Изменить пароль',
-    }, {
+    },
+    {
       buttonClass: 'button__profile-exit',
       linkClass: 'button__profile-link',
       href: '#/login',
       title: 'Выйти',
     },
   ],
-
 };
 
 // const dataProfile = {...dataSettings};

@@ -2,7 +2,13 @@ import tpl from './chat';
 
 import Component from '../../services/Component';
 
-export default class Chat extends Component {
+type ChatType = {
+  profile: string;
+  avatar: any;
+  chats: Component;
+  messages: Component;
+};
+export default class Chat extends Component<ChatType> {
   render(): DocumentFragment {
     return this.compile(tpl);
   }

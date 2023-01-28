@@ -2,8 +2,11 @@ import tpl from './message';
 
 import Component from '../../services/Component';
 
-export default class MessageItem extends Component {
-  render(): string {
+type MessageItemType = {
+  data: Array<{ [key:string]:string }>;
+};
+export default class MessageItem extends Component<MessageItemType> {
+  render(): DocumentFragment {
     return this.compile(tpl);
   }
 }

@@ -39,7 +39,7 @@ value={{value}}
 {{required}}
 {{/if}}
 />
-<span class='error_span'></span>
+<span class='error-span'></span>
 {{/if}}
 {{/data}}
 `;
