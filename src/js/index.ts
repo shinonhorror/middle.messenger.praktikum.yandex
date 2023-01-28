@@ -20,8 +20,9 @@ import dataChats from '~src/data/chats';
 import MessageItem from '~src/components/messageItem';
 import dataMessage from '~src/data/messages';
 import inputDataPassword from '~src/data/password';
-import { dataSettings, buttonProfile } from '~src/data/profile';
+import dataSettings from '~src/data/settings';
 import LinkButton from '~src/components/linkButton';
+import { dataProfile, buttonProfile } from '~src/data/profile';
 
 const loginPage = new Login('div', {
   title: 'Вход',
@@ -97,7 +98,7 @@ const profilePage = new Profile('div', {
   avatar,
   events: {},
   input: new InputBase('div', {
-    data: dataSettings.data,
+    data: dataProfile.data,
   }),
   button: new LinkButton('div', {
     data: buttonProfile.data,

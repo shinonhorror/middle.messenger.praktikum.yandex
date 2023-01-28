@@ -20,7 +20,7 @@ value={{value}}
 {{/if}}
 />
 </div>
-<span class='error_span'></span>
+<span class='error-span'></span>
 {{else}}
 <input
 class={{inputClass}}
