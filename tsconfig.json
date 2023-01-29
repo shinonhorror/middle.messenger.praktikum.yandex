@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "allowJs": true, 
+    "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "baseUrl": "./",
+    "paths": {
+      "~*": ["./*"]
+    }
+  },
+  "include": ["src/**/*", "./declaration.d.ts",".eslintrc.js", "src/**/*.js"],
+  "exclude": [
+    "node_modules"
+  ]
+}

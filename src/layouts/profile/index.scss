@@ -1,0 +1,74 @@
+@import "../../style/vars";
+
+.profile {
+  display: flex;
+
+  &__back {
+    height: calc(100% - 220px);
+    width: 64px;
+    background: $background;
+    text-align: center;
+    padding-top: 50vh;
+
+    &-link {
+      color: $inactive-link;
+
+      &:hover {
+        color: $button;
+      }
+    }
+  }
+
+  &__desc {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+
+    &-avatar {
+      margin-top: 60px;
+      align-self: center;
+    }
+
+    &-name {
+      text-align: center;
+      margin-top: 21px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 16px;
+    }
+
+    &__item {
+      width: 510px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-bottom: 1px solid $border;
+      padding: 10px 0;
+
+      &-title {
+        font-size: 13px;
+        line-height: 13px;
+        color: $base-text;
+      }
+
+      &-value {
+        border: none;
+        background: none;
+        color: $inactive-link;
+        text-align: right;
+        outline: none;
+      }
+    }
+
+    &__btn-group {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  .error {
+    color: red;
+  }
+}

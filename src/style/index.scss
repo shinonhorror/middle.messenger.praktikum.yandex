@@ -1,9 +1,9 @@
-@import "../pages/signin/index.scss";
-@import "../pages/login/index.scss";
-@import "../pages/chat/index.scss";
-@import "../pages/errors/index.scss";
-@import "../pages/profile/index.scss";
-@import "../style/_vars";
+@import "../layouts/signin/index";
+@import "../layouts/login/index";
+@import "../layouts/chat/index";
+@import "../layouts/errors/index";
+@import "../layouts/profile/index";
+@import "../style/vars";
 
 body,
 h1,
@@ -21,92 +21,117 @@ figcaption,
 blockquote,
 dl,
 dd {
-	margin: 0;
-	font-size: inherit;
-	font-family: "Inter", sans-serif;
-	font-style: normal;
-	font-weight: 500;
+  margin: 0;
+  font-size: inherit;
+  font-family: Inter, sans-serif;
+  font-style: normal;
+  font-weight: 500;
 }
+
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
+
 ul[class] {
-	list-style: none;
+  list-style: none;
 }
+
 .container {
-	margin: 0 auto;
-	width: 340px;
-	height: 100%;
-	background: $base-white;
-	box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
-	border-radius: 12px;
-	margin-top: 135px;
-	padding-top: 50px;
-	padding-bottom: 30px;
+  margin: 0 auto;
+  width: 340px;
+  height: 100%;
+  background: $base-white;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+  border-radius: 12px;
+  margin-top: 135px;
+  padding-top: 50px;
+  padding-bottom: 30px;
 }
 
 .pages {
-	display: flex;
-	flex-direction: column;
-	&__title {
-		padding-bottom: 40px;
-		text-align: center;
-		color: #1e1e1e;
-		font-size: 20px;
-		line-height: 20px;
-	}
-	&__list {
-		&-item {
-			margin-top: 10px;
-		}
-		&-link {
-			color: #1e1e1e;
-			font-size: 16px;
-			line-height: 13px;
-			&:hover {
-				color: $button;
-			}
-		}
-	}
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    padding-bottom: 40px;
+    text-align: center;
+    color: #1e1e1e;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  &__list {
+    &-item {
+      margin-top: 10px;
+    }
+
+    &-link {
+      color: #1e1e1e;
+      font-size: 16px;
+      line-height: 13px;
+
+      &:hover {
+        color: $button;
+      }
+    }
+  }
 }
 
 .button {
-	&__base {
-		background: $button;
-		border-radius: 8px;
-		height: 37px;
-		cursor: pointer;
-		border: none;
-		margin-bottom: 14px;
-		margin-top: 50px;
-		a {
-			color: $base-white;
-		}
-	}
-	&__link {
-		text-align: center;
-		color: $button;
-		font-size: 11px;
-		line-height: 11px;
-	}
-	&__profile {
-		text-align: left;
-		border: none;
-		background: none;
-		border-bottom: 1px solid $border;
-		padding: 10px 0;
-		&-link {
-			color: $button;
-		}
-		&-exit {
-			text-align: left;
-			border: none;
-			background: none;
-			padding: 10px 0;
-			border: none;
-			a {
-				color: $exit-link;
-			}
-		}
-	}
+  &__base {
+    background: $button;
+    border-radius: 8px;
+    height: 37px;
+    cursor: pointer;
+    border: none;
+    margin-bottom: 14px;
+    margin-top: 50px;
+    width: 100%;
+
+    a {
+      color: $base-white;
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: $button;
+    font-size: 11px;
+    line-height: 11px;
+  }
+
+  &__profile {
+    text-align: left;
+    border: none;
+    background: none;
+    border-bottom: 1px solid $border;
+    padding: 10px 0;
+    display: block;
+    width: 100%;
+
+    &-link {
+      color: $button;
+    }
+
+    &-exit {
+      text-align: left;
+      background: none;
+      padding: 10px 0;
+      border: none;
+
+      a {
+        color: $exit-link;
+      }
+    }
+  }
+}
+
+.error-span {
+  font-weight: 400;
+  font-size: 8px;
+  line-height: 8px;
+  color: #ff2f2f;
+  margin-top: 7px;
 }

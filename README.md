@@ -3,7 +3,7 @@
 - Макет в Figma [https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0](https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0)
 - Опубликованное приложение в Netify: https://mchat-app-yandex.netlify.app/
 
-## Ссылка на PR https://github.com/shinonhorror/middle.messenger.praktikum.yandex/pull/2
+## Ссылка на PR https://github.com/shinonhorror/middle.messenger.praktikum.yandex/pull/3
 
 ## Описание приложения
 
@@ -21,6 +21,19 @@
 - Код разделен на модули
 - Настроен Express-сервер с раздачей статики, запуск на 3000 порту
 - Все стили написаны для каждой страницы по отдельности, также есть файл с общими стилями для всего приложения
+
+## Второй спринт
+
+[Ветка sprint_2](https://github.com/shinonhorror/middle.messenger.praktikum.yandex/tree/sprint_2)
+
+- Добавлен [Eslint](https://eslint.org/)
+- Добавлен [Stylelint](https://stylelint.io/)
+- Произведена миграция с js на ts
+- Сверстана страница со списком чатов и лентой переписки. 
+- Добавлен компонентный подход в проект
+- Добавлен сбор данных из формы в консоль
+- Добавлена валидация на все формы по событиям focus/blur/input
+- Добавлен класс для работы с запросами
 
 ## Сборка и запуск проекта
 

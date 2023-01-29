@@ -12,9 +12,19 @@
 	"license": "ISC",
 	"devDependencies": {
 		"@parcel/transformer-inline-string": "2.8.2",
+		"@typescript-eslint/eslint-plugin": "5.48.2",
+		"@typescript-eslint/parser": "5.48.2",
+		"eslint": "8.32.0",
+		"eslint-config-airbnb-typescript": "^17.0.0",
+		"eslint-plugin-import": "2.27.5",
+		"eslint-plugin-n": "15.6.1",
+		"eslint-plugin-promise": "6.1.1",
 		"express": "4.18.2",
 		"parcel": "2.8.2",
-		"parcel-transformer-hbs": "1.0.4"
+		"parcel-transformer-hbs": "1.0.4",
+		"stylelint": "14.16.1",
+		"stylelint-config-standard-scss": "6.1.0",
+		"typescript": "4.9.4"
 	},
 	"targets": {
 		"default": {
@@ -29,6 +39,7 @@
 	},
 	"dependencies": {
 		"@parcel/transformer-sass": "2.8.2",
-		"handlebars": "4.7.7"
+		"handlebars": "4.7.7",
+		"uuid": "9.0.0"
 	}
 }
