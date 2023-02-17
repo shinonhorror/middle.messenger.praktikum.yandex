@@ -54,8 +54,8 @@ export default class Router {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
-    // route.render();
-    route.navigate(pathname);
+    route.render();
+    // route.navigate(pathname);
   }
 
   back() {
