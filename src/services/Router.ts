@@ -1,6 +1,9 @@
 import Component from './Component';
 import Route from './Route';
 
+interface ComponentsType<T = { [x: string]: unknown }> {
+  new (props: T): Component<T>;
+}
 export default class Router {
   private static __instance: Router;
 
@@ -25,7 +28,7 @@ export default class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block: Component) {
+  use(pathname: string, block: ComponentsType) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
     this.routes.push(route);
@@ -43,6 +46,7 @@ export default class Router {
   _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
+      this.go('/404');
       return;
     }
 

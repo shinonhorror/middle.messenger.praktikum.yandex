@@ -15,4 +15,5 @@ export class MessageItem extends Component<MessageItemType> {
 }
 
 const withMessage = connect((state) => ({ mess: [...(state.mess || [])] }));
+
 export const MessageItemClass = withMessage(MessageItem);

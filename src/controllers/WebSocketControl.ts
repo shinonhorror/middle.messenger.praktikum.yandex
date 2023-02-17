@@ -74,6 +74,7 @@ class WebSocketControl {
                 classDate: 'chat__window-your_date',
                 text: item.content,
                 date: formatData(item.time),
+                isRead: item.is_read,
               });
             } else {
               newMessages.unshift({
@@ -82,6 +83,7 @@ class WebSocketControl {
                 classDate: 'chat__window-user_date',
                 text: item.content,
                 date: formatData(item.time),
+                isRead: item.is_read,
               });
             }
           });
@@ -92,6 +94,7 @@ class WebSocketControl {
             classDate: 'chat__window-your_date',
             text: data.content,
             date: formatData(data.time),
+            isRead: data.is_read,
           });
         } else {
           newMessages.push({
@@ -100,6 +103,7 @@ class WebSocketControl {
             classDate: 'chat__window-user_date',
             text: data.content,
             date: formatData(data.time),
+            isRead: data.is_read,
           });
         }
         store.set('mess', [...(mess || []), ...newMessages]);

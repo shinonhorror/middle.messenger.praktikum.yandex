@@ -16,6 +16,11 @@ export interface UserUpdateType {
   email: string;
   phone: string;
 }
+
+export interface UserUpdatePassType {
+  oldPassword: string;
+  newPassword: string
+}
 export interface UserSign {
   id?: number;
   first_name?: string;

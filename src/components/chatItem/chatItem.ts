@@ -7,7 +7,11 @@ const tpl = `
 <li class = "contextmenu__item item-delete" >Удалить чат</li>
 </ul>
 </nav>
-  <img class="chat__list-item_avatar" src={{avatar}} alt="avatar" />
+{{#if avatar}}
+  <img class="chat__list-item_avatar" src="https://ya-praktikum.tech/api/v2/resources{{avatar}}" alt="avatar" />
+{{else}}
+<img class="chat__list-item_avatar" src={{defaultAvatar}} alt="avatar" />
+{{/if}}
   <div class="chat__list-item_info">
     <h2 class="chat__list-item_title">
       {{title}}

@@ -7,6 +7,7 @@ export interface LastMessageType {
 }
 export interface ChatType {
   avatar?: string;
+  defaultAvatar?:string;
   created_by: number;
   id: string;
   last_message?: LastMessageType;
@@ -18,6 +19,7 @@ export type ChatItemType = {
   chat: Array<ChatType>;
   active: Array<ChatType>;
   user: UserType;
+  defaultAvatar: unknown;
 };
 
 export interface Message {

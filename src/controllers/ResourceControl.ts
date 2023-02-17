@@ -4,7 +4,8 @@ const resourceApi = new ResourceAPI();
 
 class ResourceControl {
   public async getResource(pathname: string) {
-    return resourceApi.request(pathname);
+    const url = await resourceApi.request(pathname);
+    return url;
   }
 
   public async createResource(data: FormData) {

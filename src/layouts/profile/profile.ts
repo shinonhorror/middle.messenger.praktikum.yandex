@@ -15,7 +15,7 @@ const tpl = `
 <form class="profile__desc" action="submit">
 <div class="profile__desc-avatar">
 {{#if user.avatar}}
-<img id="avatar" src="https://ya-praktikum.tech/api/v2/resources/{{user.avatar}}" alt="avatar" />
+<img id="avatar" src={{user.avatar}} alt="avatar" />
 {{else}}
 <img id="avatar" src={{avatar}} alt="avatar" />
 {{/if}}

@@ -3,11 +3,12 @@ import Component from '../../services/Component';
 import avatar from '~src/img/avatar.png';
 import ChatControl from '~src/controllers/ChatControl';
 import connect from '~src/services/Connector';
+import { ChatType } from '~src/types/ChatTypes';
 
 type UserSearchBaseType = {
   users?: Array<Record<string, string>>;
   searchType?: string;
-  active?: Array<Record<string, string>>;
+  active?: Array<ChatType>;
 };
 export class UserSearch extends Component<UserSearchBaseType> {
   constructor(props: UserSearchBaseType) {
@@ -36,6 +37,11 @@ export class UserSearch extends Component<UserSearchBaseType> {
               chatId: id as string,
             });
           } else if (this._props.searchType === 'delete') {
+            if (this._props.active[0].created_by === Number(item.dataset.id)) {
+              const span = document.querySelector('.error-span') as HTMLElement;
+              span.textContent = 'Вы не можете удалить создателя чата!';
+              return;
+            }
             ChatControl.deleteUser({
               users: [item.dataset.id as string],
               chatId: id as string,

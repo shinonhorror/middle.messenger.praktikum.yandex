@@ -27,9 +27,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.Log, Login)
     .use(Routes.Auth, Signin)
     .use(Routes.Err, Error)
+    .use(Routes.NorFound, Error)
     .use(Routes.Prof, ProfileClass)
     .use(Routes.Messages, ChatClass)
-    .use(Routes.NorFound, Error)
     .use(Routes.Password, ProfileClass)
     .use(Routes.Set, ProfileClass)
     .start();

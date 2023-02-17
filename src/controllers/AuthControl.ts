@@ -1,6 +1,7 @@
 import AuthAPI from '~src/api/AuthAPI';
 import router from '~src/js';
 import { store } from '~src/services/Store';
+import ResourceControl from './ResourceControl';
 
 const signInApi = new AuthAPI();
 
@@ -19,7 +20,7 @@ class AuthControl {
   public async login(data: Sign) {
     try {
       await signInApi.request(data, '/signin');
-      this.authUser();
+      await this.authUser();
       router.go('/profile');
     } catch (e: any) {
       console.error(e);
@@ -29,7 +30,7 @@ class AuthControl {
   public async signup(data: Sign) {
     try {
       await signInApi.request(data, '/signup');
-      this.authUser();
+      await this.authUser();
       router.go('/profile');
     } catch (e: any) {
       console.error(e);
@@ -39,6 +40,7 @@ class AuthControl {
   public async authUser() {
     try {
       const user = await signInApi.user();
+      user.avatar = await ResourceControl.getResource(user.avatar);
       store.set('user', user);
       store.set('isAuth', true);
     } catch (e) {
@@ -47,7 +49,8 @@ class AuthControl {
   }
 
   public async getUser() {
-    return signInApi.user();
+    const user = await signInApi.user();
+    return user;
   }
 
   public async logout() {

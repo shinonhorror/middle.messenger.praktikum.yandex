@@ -3,6 +3,7 @@ import ChatControl from '~src/controllers/ChatControl';
 import UserControl from '~src/controllers/UserControl';
 import WebSocketControl from '~src/controllers/WebSocketControl';
 import validator from '~src/services/Validator';
+import { UserSign, UserUpdatePassType, UserUpdateType } from '~src/types/UserTypes';
 
 export async function Submit(e: SubmitEvent): Promise<boolean> {
   e.preventDefault();
@@ -25,15 +26,15 @@ export async function Submit(e: SubmitEvent): Promise<boolean> {
     objectData[key] = value;
   });
   if (window.location.pathname === '/sign-in') {
-    await AuthControl.login(objectData);
+    await AuthControl.login(objectData as unknown as UserSign);
   } else if (window.location.pathname === '/edit-profile') {
-    await UserControl.changeProfile(objectData);
+    await UserControl.changeProfile(objectData as unknown as UserUpdateType);
   } else if (window.location.pathname === '/change-password') {
-    await UserControl.changePassword(objectData);
+    await UserControl.changePassword(objectData as unknown as UserUpdatePassType);
   } else if (window.location.pathname === '/sign-up') {
-    await AuthControl.signup(objectData);
+    await AuthControl.signup(objectData as unknown as UserSign);
   } else if (window.location.pathname === '/messenger' && objectData.message) {
-    WebSocketControl.send(objectData.message);
+    WebSocketControl.send(objectData.message as string);
     await ChatControl.getChats();
   }
   console.log(objectData);
@@ -52,9 +53,9 @@ export function Input(e: InputEvent): void {
   validator(e.target as HTMLInputElement);
 }
 
-export function openModal(e: Event): void {
+export function openModal(e: Event, classModal: string = '.modal'): void {
   e.preventDefault();
-  const modal = document.querySelector('.modal') as HTMLElement;
+  const modal = document.querySelector(classModal) as HTMLElement;
   modal.classList.add('modal-active');
   modal.addEventListener('click', (event:Event) => {
     const dialog = event.target as HTMLElement;

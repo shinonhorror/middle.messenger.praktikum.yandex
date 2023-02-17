@@ -32,6 +32,10 @@ export default class ChatItem extends Component<ChatItemType> {
           const activeChat = chats.filter(
             (el: { [key: string]: any }) => el.id === Number(element.dataset.id),
           );
+          const a = chats.find(
+            (el: ChatType) => el.id === Number(element.dataset.id)
+          );
+          console.log(a)
           ChatControl.setActiveChat(activeChat);
           WebSocketControl.init(this._props.user.id, this._props.active[0].id);
         });
@@ -49,15 +53,18 @@ export default class ChatItem extends Component<ChatItemType> {
           menu.classList.remove('active');
         });
       });
-    // document.addEventListener(
-    //   "click",
-    //   (e) => {
-    //     if (e.button !== 2) {
-    //       menu.classList.toggle("active");
-    //     }
-    //   },
-    //   false
-    // );
+    document.addEventListener(
+      'click',
+      (e) => {
+        if (e.button !== 2) {
+          this._element.querySelectorAll('.chat__list-item').forEach((item) => {
+            const menu = item.querySelector('.contextmenu') as HTMLElement;
+            menu.classList.remove('active');
+          });
+        }
+      },
+      false,
+    );
     super.addEvents();
   }
 
@@ -79,21 +86,35 @@ export default class ChatItem extends Component<ChatItemType> {
             (el: { [key: string]: any }) => el.id === Number(element.dataset.id),
           );
           ChatControl.setActiveChat(activeChat);
+          await ChatControl.getChats();
+          WebSocketControl.init(this._props.user.id, this._props.active[0].id);
         });
         menu.removeEventListener('click', (e: Event): void => {
           e.stopPropagation();
         });
         const del = menu.querySelector('.item-delete') as HTMLElement;
-        del.removeEventListener('click', () => {
+        del.removeEventListener('click', async () => {
           const action = confirm('Вы уверены, что хотите удалить чат?');
           if (action) {
-            ChatControl.deleteChat({
+            await ChatControl.deleteChat({
               chatId: item.dataset.id as string,
             });
           }
           menu.classList.remove('active');
         });
       });
+    document.removeEventListener(
+      'click',
+      (e) => {
+        if (e.button !== 2) {
+          this._element.querySelectorAll('.chat__list-item').forEach((item) => {
+            const menu = item.querySelector('.contextmenu') as HTMLElement;
+            menu.classList.remove('active');
+          });
+        }
+      },
+      false,
+    );
     super.removeEvents();
   }
 }

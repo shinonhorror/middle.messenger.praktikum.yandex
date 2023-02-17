@@ -3,15 +3,18 @@ import Component from '../../services/Component';
 import { ChatItemClass } from '~src/components/chatItem';
 import { MessageItemClass } from '~src/components/messageItem';
 import {
-  Blur, Focus, Input, Submit,
+  Blur, Focus, Input, Submit, openModal,
 } from '~src/data/events';
 import LinkButton from '~src/components/linkButton';
 import ChatControl from '~src/controllers/ChatControl';
 import router from '~src/js';
 import Dropdown from '~src/components/dropdown';
 import connect from '~src/services/Connector';
+import WebSocketControl from '~src/controllers/WebSocketControl';
+import { ChatType } from '~src/types/ChatTypes';
+import { UserType } from '~src/types/UserTypes';
 
-type ChatType = {
+type ChatTypeBase = {
   button: Component;
   avatar: unknown;
   chats: Component;
@@ -19,12 +22,13 @@ type ChatType = {
   dropdown: Component;
   title: string;
   searching?: Component;
-  active: Array<ChatType>;
-  chat: Array<ChatType>;
+  active?: Array<ChatType>;
+  chat?: Array<ChatType>;
+  user: UserType;
 };
 
-export class Chat extends Component<ChatType> {
-  constructor(props: ChatType) {
+export class Chat extends Component<ChatTypeBase> {
+  constructor(props: ChatTypeBase) {
     super('div', {
       ...props,
       button: new LinkButton({
@@ -50,6 +54,9 @@ export class Chat extends Component<ChatType> {
       input: Input,
     };
     ChatControl.getChats();
+    if (this._props.active) {
+      WebSocketControl.init(this._props.user.id, this._props.active[0].id);
+    }
   }
 
   render(): DocumentFragment {
@@ -85,6 +92,31 @@ export class Chat extends Component<ChatType> {
       e.preventDefault();
       router.go('/profile');
     });
+    const img = this._element.querySelector('.chat__window-user_avatar');
+    img?.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(e, '.modal_avatar');
+    });
+    const modalForm = this._element.querySelector('.modal-body');
+    modalForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      if (form.classList.contains('modal-body')) {
+        const formData1 = new FormData();
+        const inputForm = form.querySelector(
+          '.modal-body_input',
+        ) as HTMLInputElement;
+        if (inputForm.files) {
+          if (this._props.active) {
+            formData1.set('chatId', this._props.active[0].id);
+            formData1.set('avatar', inputForm?.files[0]);
+            ChatControl.updateChatAvatar(formData1);
+            return true;
+          }
+        }
+      }
+      return false;
+    });
     super.addEvents();
   }
 
@@ -106,7 +138,11 @@ export class Chat extends Component<ChatType> {
       e.preventDefault();
       router.go('/profile');
     });
-
+    const img = this._element.querySelector('.chat__window-user_avatar');
+    img?.removeEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(e, '.modal_avatar');
+    });
     super.removeEvents();
   }
 }

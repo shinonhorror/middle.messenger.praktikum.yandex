@@ -12,6 +12,7 @@ type DropdownType = {
   links?: Array<Record<string, string>>;
   btnClass?: string;
   title?: string;
+  search?: boolean;
 };
 export default class Dropdown extends Component<DropdownType> {
   constructor(props: DropdownType) {
@@ -50,6 +51,7 @@ export default class Dropdown extends Component<DropdownType> {
           link.addEventListener('click', (e) => {
             this.setProps({
               title: 'Добавить пользователя',
+              search: true,
             });
             this._children.searching.setProps({
               searchType: 'add',
@@ -60,6 +62,7 @@ export default class Dropdown extends Component<DropdownType> {
           link.addEventListener('click', (e) => {
             this.setProps({
               title: 'Удалить пользователя',
+              search: true,
             });
             this._children.searching.setProps({
               searchType: 'delete',
@@ -69,7 +72,8 @@ export default class Dropdown extends Component<DropdownType> {
         } else if (classLink === 'item-info') {
           link.addEventListener('click', async (e) => {
             this.setProps({
-              title: 'Пользователи чата',
+              title: 'Информация о чате',
+              search: false,
             });
             const users = await ChatControl.getUsers(id);
             this._children.searching.setProps({

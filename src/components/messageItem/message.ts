@@ -3,7 +3,13 @@ const tpl = `
 {{#each mess}}
   <div class={{classItem}}>
   <p class={{classText}}>{{text}}</p>
-  <p class={{classDate}}>{{date}}</p>
+  <p class={{classDate}}>
+  {{#if isRead}}
+  &#x2713 &#x2713 
+  {{else}} 
+  &#x2713 
+  {{/if}}
+  {{date}}</p>
   </div>
 {{/each}}
 {{else}}

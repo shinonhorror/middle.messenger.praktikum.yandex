@@ -1,10 +1,10 @@
 import ChatAPI from '~src/api/ChatAPI';
 import { store } from '~src/services/Store';
 import formatData from '~src/utils/data';
-import defaultAvatar from '~src/img/avatar.png';
 import {
   ChatType, CreateChat, DeleteChat, UserToChat,
 } from '~src/types/ChatTypes';
+import defaultAvatar from '~src/img/avatar.png';
 
 const chatApi = new ChatAPI();
 
@@ -13,11 +13,11 @@ class ChatControl {
     try {
       const chat = await chatApi.request('');
       chat.forEach((item: ChatType) => {
-        if (!item.avatar) {
-          item.avatar = defaultAvatar;
-        }
         if (item.last_message) {
           item.last_message.time = formatData(item.last_message.time);
+        }
+        if (!item.avatar) {
+          item.defaultAvatar = defaultAvatar;
         }
       });
       store.set('chat', chat);
@@ -59,7 +59,7 @@ class ChatControl {
 
   public async addUser(data: UserToChat) {
     try {
-      await chatApi.update(data);
+      await chatApi.update(data, '/users');
       await this.getChats();
     } catch (e: any) {
       console.error(e);
@@ -69,6 +69,15 @@ class ChatControl {
   public async getUsers(id: string) {
     const users = await chatApi.request(`/${id}/users`);
     return users;
+  }
+
+  public async updateChatAvatar(data: FormData) {
+    try {
+      await chatApi.updateAvatar(data);
+      await this.getChats();
+    } catch (e: any) {
+      console.error(e);
+    }
   }
 
   public async getToken(id: number) {

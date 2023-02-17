@@ -3,8 +3,11 @@ const tpl = `
   <div class="modal-dialog">
       <form class="modal-body" action="submit">    
         <h2 class="modal-body_title">{{title}}</h2>
+        {{#if search}}
         <input class="modal-body_search" type="text" name="search" placeholder="Введите логин">
         {{{button}}}
+        <span class='error-span'></span>
+        {{/if}}
         {{{searching}}}
       </form> 
   </div>

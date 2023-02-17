@@ -21,17 +21,19 @@ type ProfileType = {
   login?: string;
   settings?: string;
   password?: string;
-  avatar: any;
+  defaultAvatar: any;
   input: Component;
   button: Component;
 };
 export class Profile extends Component<ProfileType> {
   constructor(props: ProfileType) {
-    super('div', props);
+    super('div', {
+      ...props,
+      defaultAvatar: avatar,
+    });
   }
 
   render(): DocumentFragment {
-    this._props.avatar = avatar;
     if (window.location.pathname === '/profile') {
       this.profileProps();
     } else if (window.location.pathname === '/edit-profile') {
@@ -119,13 +121,15 @@ export class Profile extends Component<ProfileType> {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         if (form.classList.contains('modal-body')) {
-          const formData1 = new FormData(form);
-          const input = form.querySelector('.modal-body_input') as HTMLInputElement;
+          const formData1 = new FormData();
+          const input = form.querySelector(
+            '.modal-body_input',
+          ) as HTMLInputElement;
           if (input.files) {
-            formData1.set('avatar', input?.files[0], 'my-file-name.png');
+            formData1.set('avatar', input?.files[0]);
+            UserControl.changeAvatar(formData1);
+            return true;
           }
-          await UserControl.changeAvatar(formData1);
-          return true;
         }
         return Submit(e);
       },
@@ -148,13 +152,15 @@ export class Profile extends Component<ProfileType> {
         e.preventDefault();
         const form = e.target as HTMLFormElement;
         if (form.classList.contains('modal-body')) {
-          const formData1 = new FormData(form);
-          const input = form.querySelector('.modal-body_input') as HTMLInputElement;
+          const formData1 = new FormData();
+          const input = form.querySelector(
+            '.modal-body_input',
+          ) as HTMLInputElement;
           if (input.files) {
-            formData1.set('avatar', input?.files[0], 'my-file-name.png');
+            formData1.set('avatar', input?.files[0]);
+            UserControl.changeAvatar(formData1);
+            return true;
           }
-          await UserControl.changeAvatar(formData1);
-          return true;
         }
         return Submit(e);
       },

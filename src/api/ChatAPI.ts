@@ -35,8 +35,15 @@ export default class ChatAPI {
       .then((data) => data.response);
   }
 
-  update(body: UserToChat) {
-    return chatAPIInstance.put('/users', {
+  update(body: UserToChat, path:string) {
+    return chatAPIInstance.put(path, {
+      method: 'PUT',
+      data: body,
+    });
+  }
+
+  updateAvatar(body:FormData) {
+    return chatAPIInstance.put('/avatar', {
       method: 'PUT',
       data: body,
     });

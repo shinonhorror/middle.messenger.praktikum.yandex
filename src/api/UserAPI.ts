@@ -1,11 +1,11 @@
-import { UserUpdateType } from '~src/types/UserTypes';
+import { UserUpdatePassType, UserUpdateType } from '~src/types/UserTypes';
 import HTTPTransport from './HTTPTransport';
 
 const host = 'https://ya-praktikum.tech';
 const userAPIInstance = new HTTPTransport(`${host}/api/v2/user`);
 
 export default class UserAPI {
-  update(body: UserUpdateType, path: string) {
+  update(body: UserUpdateType | UserUpdatePassType, path: string) {
     return userAPIInstance
       .put(path, {
         method: 'PUT',
