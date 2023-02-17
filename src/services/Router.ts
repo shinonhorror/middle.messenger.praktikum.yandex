@@ -51,12 +51,6 @@ export default class Router {
       this.go('/404');
       return;
     }
-    if (pathname === '/' || pathname === '/sign-up') {
-      if (store.getState().isAuth) {
-        AuthControl.logout();
-        return;
-      }
-    }
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
