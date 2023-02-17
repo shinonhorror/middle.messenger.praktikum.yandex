@@ -22,7 +22,7 @@ class AuthControl {
     try {
       await signInApi.request(data, '/signin');
       await this.authUser();
-      router.go('/profile');
+      router.go('/settings');
     } catch (e: any) {
       const span = document.querySelector('.error-span_reason') as HTMLElement;
       span.textContent = e;
@@ -33,7 +33,7 @@ class AuthControl {
     try {
       await signInApi.request(data, '/signup');
       await this.authUser();
-      router.go('/profile');
+      router.go('/settings');
     } catch (e: any) {
       const span = document.querySelector('.error-span_reason') as HTMLElement;
       span.textContent = e;
@@ -50,7 +50,6 @@ class AuthControl {
       } else {
         user.avatar = avatar;
       }
-
       store.set('user', user);
       store.set('isAuth', true);
     } catch (e) {
@@ -59,6 +58,7 @@ class AuthControl {
   }
 
   public async getUser() {
+    await this.authUser();
     const user = await signInApi.user();
     return user;
   }

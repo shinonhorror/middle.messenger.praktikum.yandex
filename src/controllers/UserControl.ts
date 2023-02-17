@@ -10,9 +10,9 @@ class UserControl {
   public async changeProfile(data: UserUpdateType) {
     try {
       const user = await userApi.update(data, '/profile');
-      user.avatar = await ResourceControl.getResource(user.avatar);
+      user.avatar = (await ResourceControl.getResource(user.avatar)) as string;
       store.set('user', user);
-      router.go('/profile');
+      router.go('/settings');
     } catch (e: any) {
       console.error(e);
     }
@@ -25,7 +25,7 @@ class UserControl {
   public async changePassword(data: UserUpdatePassType) {
     try {
       await userApi.update(data, '/password');
-      router.go('/profile');
+      router.go('/settings');
     } catch (e: any) {
       console.error(e);
     }

@@ -2,182 +2,154 @@ import tpl from './dropdown';
 import Component from '../../services/Component';
 import ChatControl from '~src/controllers/ChatControl';
 import { openModal } from '~src/data/events';
-import { store } from '~src/services/Store';
 import UserControl from '~src/controllers/UserControl';
 import { UserSearchClass } from '../userSearch';
 import BaseButton from '../baseButton';
 import { ChatType } from '~src/types/ChatTypes';
+import LinkButton from '../linkButton';
+import connect from '~src/services/Connector';
 
 type DropdownType = {
-  links?: Array<Record<string, string>>;
+  links?: Component[];
   btnClass?: string;
   title?: string;
   search?: boolean;
+  button?: Component;
+  searching?: Component;
+  active: ChatType;
 };
 export default class Dropdown extends Component<DropdownType> {
   constructor(props: DropdownType) {
-    super('div', props);
+    super('div', {
+      ...props,
+      btnClass: 'fa-ellipsis-vertical',
+      links: [
+        new LinkButton({
+          linkClass: 'dropdown__content-link',
+          title: 'Информация о чате',
+          events: {
+            click: async (e) => {
+              this.setProps({
+                ...this._props,
+                title: 'Информация о чате',
+                search: false,
+              });
+              const users = await ChatControl.getUsers(
+                this._props.active.id as string,
+              );
+              this._children.searching.setProps({
+                searchType: 'info',
+                users,
+              });
+              openModal(e);
+            },
+          },
+        }),
+        new LinkButton({
+          linkClass: 'dropdown__content-link',
+          title: 'Добавить пользователя',
+          events: {
+            click: (e) => {
+              this.setProps({
+                ...this._props,
+                title: 'Добавить пользователя',
+                search: true,
+              });
+              this._children.searching.setProps({
+                searchType: 'add',
+              });
+              openModal(e);
+            },
+          },
+        }),
+        new LinkButton({
+          linkClass: 'dropdown__content-link',
+          title: 'Удалить пользователя',
+          events: {
+            click: (e) => {
+              this.setProps({
+                ...this._props,
+                title: 'Удалить пользователя',
+                search: true,
+              });
+              this._children.searching.setProps({
+                searchType: 'delete',
+              });
+              openModal(e);
+            },
+          },
+        }),
+        new LinkButton({
+          linkClass: 'dropdown__content-link',
+          title: 'Удалить чат',
+          events: {
+            click: () => {
+              if (this._props.active) {
+                ChatControl.deleteChat({
+                  chatId: this._props.active.id as string,
+                });
+              }
+            },
+          },
+        }),
+      ],
+      button: new BaseButton('div', {
+        buttonClass: 'button__base',
+        title: 'Поиск',
+      }),
+      events: {
+        submit: async (e: SubmitEvent) => {
+          e.preventDefault();
+          const form = e.target as HTMLFormElement;
+          const formData = new FormData(form);
+          const objectData: { [key: string]: FormDataEntryValue } = {};
+          const mas = formData.entries();
+          Array.from(mas).forEach((item) => {
+            const key = 'login';
+            const value = item[1];
+            objectData[key] = value;
+          });
+          const users = await UserControl.searchUser(objectData);
+          this._children.searching.setProps({
+            users,
+          });
+          return true;
+        },
+      },
+    });
     this._element.classList.add('dropdown');
   }
 
   render(): DocumentFragment {
-    this._children.button = new BaseButton('div', {
-      buttonClass: 'button__base',
-      title: 'Поиск',
-    });
     this._children.searching = new UserSearchClass({});
     return this.compile(tpl, { ...this._props });
   }
 
   addEvents(): void {
-    const activeChat = store.getState().active as ChatType;
-    if (!activeChat) {
+    if (!this._props.events) {
       return;
     }
-    const { id } = activeChat;
-    this._element
-      .querySelectorAll('.dropdown__content-link')
-      .forEach((link: HTMLElement) => {
-        const classLink = link.dataset.class;
-        if (classLink === 'item-delete-chat') {
-          link.addEventListener('click', () => {
-            if (activeChat) {
-              ChatControl.deleteChat({
-                chatId: id as string,
-              });
-            }
-          });
-        } else if (classLink === 'item-add') {
-          link.addEventListener('click', (e) => {
-            this.setProps({
-              title: 'Добавить пользователя',
-              search: true,
-            });
-            this._children.searching.setProps({
-              searchType: 'add',
-            });
-            openModal(e);
-          });
-        } else if (classLink === 'item-del') {
-          link.addEventListener('click', (e) => {
-            this.setProps({
-              title: 'Удалить пользователя',
-              search: true,
-            });
-            this._children.searching.setProps({
-              searchType: 'delete',
-            });
-            openModal(e);
-          });
-        } else if (classLink === 'item-info') {
-          link.addEventListener('click', async (e) => {
-            this.setProps({
-              title: 'Информация о чате',
-              search: false,
-            });
-            const users = await ChatControl.getUsers(id);
-            this._children.searching.setProps({
-              searchType: 'info',
-              users,
-            });
-            openModal(e);
-          });
-        }
-      });
+    const { submit } = this._props.events as {
+      [key: string]: () => void;
+    };
     const modalForm = this._element.querySelector('.modal-body');
-    modalForm?.addEventListener('submit', async (e: SubmitEvent) => {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      const formData = new FormData(form);
-      const objectData: { [key: string]: FormDataEntryValue } = {};
-      const mas = formData.entries();
-      Array.from(mas).forEach((item) => {
-        const key = 'login';
-        const value = item[1];
-        objectData[key] = value;
-      });
-      const users = await UserControl.searchUser(objectData);
-      this._children.searching.setProps({
-        users,
-      });
-      return true;
-    });
+    modalForm?.addEventListener('submit', submit);
     super.addEvents();
   }
 
   removeEvents(): void {
-    const activeChat = store.getState().active as ChatType;
-    if (!activeChat) {
+    if (!this._props.events) {
       return;
     }
-    const { id } = activeChat;
-    this._element
-      .querySelectorAll('.dropdown__content-link')
-      .forEach((link: HTMLElement) => {
-        const classLink = link.dataset.class;
-        if (classLink === 'item-delete-chat') {
-          link.removeEventListener('click', () => {
-            if (activeChat) {
-              ChatControl.deleteChat({
-                chatId: id as string,
-              });
-            }
-          });
-        } else if (classLink === 'item-add') {
-          link.removeEventListener('click', (e) => {
-            this.setProps({
-              title: 'Добавить пользователя',
-              search: true,
-            });
-            this._children.searching.setProps({
-              searchType: 'add',
-            });
-            openModal(e);
-          });
-        } else if (classLink === 'item-del') {
-          link.removeEventListener('click', (e) => {
-            this.setProps({
-              title: 'Удалить пользователя',
-              search: true,
-            });
-            this._children.searching.setProps({
-              searchType: 'delete',
-            });
-            openModal(e);
-          });
-        } else if (classLink === 'item-info') {
-          link.removeEventListener('click', async (e) => {
-            this.setProps({
-              title: 'Информация о чате',
-              search: false,
-            });
-            const users = await ChatControl.getUsers(id);
-            this._children.searching.setProps({
-              searchType: 'info',
-              users,
-            });
-            openModal(e);
-          });
-        }
-      });
+    const { submit } = this._props.events as {
+      [key: string]: () => void;
+    };
     const modalForm = this._element.querySelector('.modal-body');
-    modalForm?.removeEventListener('submit', async (e: SubmitEvent) => {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      const formData = new FormData(form);
-      const objectData: { [key: string]: FormDataEntryValue } = {};
-      const mas = formData.entries();
-      Array.from(mas).forEach((item) => {
-        const key = 'login';
-        const value = item[1];
-        objectData[key] = value;
-      });
-      const users = await UserControl.searchUser(objectData);
-      this._children.searching.setProps({
-        users,
-      });
-      return true;
-    });
+    modalForm?.removeEventListener('submit', submit);
     super.removeEvents();
   }
 }
+
+const withActive = connect((state) => ({ active: { ...(state.active || {}) } }));
+
+export const DropdownClass = withActive(Dropdown);

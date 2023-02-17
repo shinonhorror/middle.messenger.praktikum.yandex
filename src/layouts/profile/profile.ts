@@ -10,7 +10,7 @@ const tpl = `
 </div>
 <div class="profile">
 <div class="profile__back">
-<a class="profile__back-link">Back</a>
+{{{chatLink}}}
 </div>
 <form class="profile__desc" action="submit">
 <div class="profile__desc-avatar">

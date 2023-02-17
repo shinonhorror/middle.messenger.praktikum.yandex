@@ -7,7 +7,7 @@ const tpl = `
 <h1 class="message__code">404</h1>
 <h2 class="message__text">Не туда попали</h2>
 {{/if}}
-<a class="message__link">Назад</a>
+{{{link}}}
 </div>`;
 
 export default tpl;

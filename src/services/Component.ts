@@ -17,7 +17,7 @@ export default class Component<T = { [x: string]: unknown }> {
 
   _props: Props<T>;
 
-  _children: Record<string, Component>;
+  _children: Record<string, Component | any>;
 
   _id: string;
 
@@ -197,7 +197,7 @@ export default class Component<T = { [x: string]: unknown }> {
   compile(template: string, props: any = this._props): DocumentFragment {
     const propsAnsStubs = { ...props };
     (<any>Object)
-      .entries(this._children as Record<string, Component>)
+      .entries(this._children as Record<string, Component | any>)
       .forEach(([key, child]: any) => {
         if (isArray(child)) {
           propsAnsStubs[key] = child
@@ -237,9 +237,9 @@ export default class Component<T = { [x: string]: unknown }> {
 
   getChildren(propsAndChilds: Props<T>): {
     props: Props<T>;
-    children: Record<string, any>;
+    children: Record<string, Component | any>;
   } {
-    const children: Record<string, any> = {};
+    const children: Record<string, Component | any> = {};
     const props: Record<string, unknown> = {};
 
     (<any>Object).entries(propsAndChilds).forEach(([key, value]: any) => {

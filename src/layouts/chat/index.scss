@@ -86,7 +86,7 @@
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
     border-radius: 12px;
     z-index: 1;
-    left: 45vw;
+    left: 46vw;
     padding: 10px 0;
     &:hover {
       display: block;
@@ -97,6 +97,7 @@
       cursor: pointer;
       list-style-type: none;
       padding: 10px 15px;
+      display: block;
       &:hover {
         background: $background-chat-message;
         color: $button;

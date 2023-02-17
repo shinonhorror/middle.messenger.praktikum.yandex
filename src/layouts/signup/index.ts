@@ -8,11 +8,13 @@ import {
 import BaseButton from '~src/components/baseButton';
 import InputBase from '~src/components/input';
 import router from '~src/js';
+import LinkButton from '~src/components/linkButton';
 
 type SigninType = {
   title: string;
   input: Component;
   button: Component;
+  link: Component;
 };
 export default class Signin extends Component<SigninType> {
   constructor(props: SigninType) {
@@ -25,6 +27,16 @@ export default class Signin extends Component<SigninType> {
       button: new BaseButton('div', {
         buttonClass: 'button__base',
         title: 'Зарегестрироваться',
+      }),
+      link: new LinkButton({
+        linkClass: 'button__link',
+        title: 'Войти',
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+            router.go('/');
+          },
+        },
       }),
     });
     this._props.events = {
@@ -40,11 +52,6 @@ export default class Signin extends Component<SigninType> {
   }
 
   addEvents(): void {
-    const link = this._element.querySelector('.button__link');
-    link?.addEventListener('click', (e) => {
-      e.preventDefault();
-      router.go('/');
-    });
     if (!this._props.events) {
       return;
     }
@@ -60,11 +67,6 @@ export default class Signin extends Component<SigninType> {
   }
 
   removeEvents(): void {
-    const link = this._element.querySelector('.button__link');
-    link?.removeEventListener('click', (e) => {
-      e.preventDefault();
-      router.go('/');
-    });
     if (!this._props.events) {
       return;
     }

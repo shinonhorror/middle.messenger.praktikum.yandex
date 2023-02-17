@@ -1,4 +1,4 @@
-import { UserUpdatePassType, UserUpdateType } from '~src/types/UserTypes';
+import { UserUpdatePassType, UserUpdateType, UserType } from '~src/types/UserTypes';
 import HTTPTransport from './HTTPTransport';
 
 const host = 'https://ya-praktikum.tech';
@@ -8,7 +8,7 @@ export default class UserAPI {
   update(
     body: UserUpdateType | UserUpdatePassType,
     path: string,
-  ): Promise<XMLHttpRequest> {
+  ): Promise<UserType> {
     return userAPIInstance
       .put(path, {
         method: 'PUT',
@@ -17,7 +17,7 @@ export default class UserAPI {
       .then((data) => data.response);
   }
 
-  updateAvatar(file: FormData): Promise<XMLHttpRequest> {
+  updateAvatar(file: FormData): Promise<UserType> {
     return userAPIInstance
       .put('/profile/avatar', {
         method: 'PUT',

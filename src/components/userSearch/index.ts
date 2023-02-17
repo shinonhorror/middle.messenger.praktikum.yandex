@@ -97,6 +97,6 @@ export class UserSearch extends Component<UserSearchBaseType> {
     super.removeEvents();
   }
 }
-const withActive = connect((state) => ({ ...state }));
+const withActive = connect((state) => ({ active: { ...(state.active || {}) } }));
 
 export const UserSearchClass = withActive(UserSearch);

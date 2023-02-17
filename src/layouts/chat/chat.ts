@@ -10,7 +10,7 @@ const tpl = `
 </div>
 <div class="chat">
   <div class="chat__line">
-    <a class="chat__line-link">Профиль</a>
+    {{{link}}}
     <input
       class="chat__line-input"
       type="search"
@@ -56,3 +56,4 @@ const tpl = `
 export default tpl;
 
 // <p class="chat__window-date">19 июня</p>;
+// <a class="chat__line-link">Профиль</a>

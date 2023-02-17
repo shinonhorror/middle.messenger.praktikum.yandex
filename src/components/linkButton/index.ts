@@ -3,7 +3,7 @@ import tpl from './link';
 import Component from '../../services/Component';
 
 type LinkButtonType = {
-  buttonClass: string;
+  buttonClass?: string;
   linkClass: string;
   title: string;
   link?: string;

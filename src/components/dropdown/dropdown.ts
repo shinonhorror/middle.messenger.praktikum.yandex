@@ -15,9 +15,7 @@ const tpl = `
 </div>
 <button class="dropdown__btn"><i class="fa-solid {{btnClass}}"></i></button>
 <div class = "dropdown__content">
-{{#each links}}
-<li class = "dropdown__content-link" data-class={{linkClass}}><a>{{title}}</a></li>
-{{/each}}
+{{{links}}}
 </div>
 `;
 

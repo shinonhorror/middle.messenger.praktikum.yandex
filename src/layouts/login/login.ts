@@ -4,7 +4,7 @@ const tpl = `<div class="container">
 {{{input}}}
 <span class='error-span_reason'></span>
 {{{button}}}
-<a class="button__link">Нет аккаунта?</a>
+{{{link}}}
 </form>
 </div>`;
 

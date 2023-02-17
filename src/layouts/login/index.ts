@@ -7,12 +7,14 @@ import BaseButton from '~src/components/baseButton';
 import inputDataLogin from '~src/data/login';
 import InputBase from '~src/components/input';
 import router from '~src/js';
+import LinkButton from '~src/components/linkButton';
 
 type LoginType = {
   title: string;
   auth: string;
   input: Component;
   button: Component;
+  link: Component;
 };
 export default class Login extends Component<LoginType> {
   constructor(props: LoginType) {
@@ -24,6 +26,16 @@ export default class Login extends Component<LoginType> {
       }),
       input: new InputBase({
         data: inputDataLogin.data,
+      }),
+      link: new LinkButton({
+        linkClass: 'button__link',
+        title: 'Нет аккаунта?',
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+            router.go('/sign-up');
+          },
+        },
       }),
     });
     this._props.events = {
@@ -39,11 +51,6 @@ export default class Login extends Component<LoginType> {
   }
 
   addEvents(): void {
-    const link = this._element.querySelector('.button__link');
-    link?.addEventListener('click', (e: Event): void => {
-      e.preventDefault();
-      router.go('/sign-up');
-    });
     if (!this._props.events) {
       return;
     }
@@ -61,11 +68,6 @@ export default class Login extends Component<LoginType> {
   }
 
   removeEvents(): void {
-    const link = this._element.querySelector('.button__link');
-    link?.removeEventListener('click', (e: Event): void => {
-      e.preventDefault();
-      router.go('/sign-up');
-    });
     if (!this._props.events) {
       return;
     }

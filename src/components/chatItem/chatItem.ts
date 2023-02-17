@@ -20,7 +20,11 @@ const tpl = `
     <p class="chat__list-item_unread">{{unread_count}}</p>
     {{/if}}
     {{#if last_message}}
+    {{#if last_message.user.display_name}}
     <p class="chat__list-item_text">{{last_message.user.display_name}}: {{last_message.content}}</p>
+    {{else}}
+    <p class="chat__list-item_text">{{last_message.user.login}}: {{last_message.content}}</p>
+    {{/if}}
     <div>
     <p class="chat__list-item_date">{{last_message.time}}</p>
     </div>

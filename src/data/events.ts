@@ -28,10 +28,12 @@ export async function Submit(e: SubmitEvent): Promise<boolean> {
   if (window.location.pathname === '/') {
     await AuthControl.login(objectData as unknown as UserSign);
     await AuthControl.getUser();
-  } else if (window.location.pathname === '/edit-profile') {
+  } else if (window.location.pathname === '/settings/edit') {
     await UserControl.changeProfile(objectData as unknown as UserUpdateType);
-  } else if (window.location.pathname === '/change-password') {
-    await UserControl.changePassword(objectData as unknown as UserUpdatePassType);
+  } else if (window.location.pathname === '/settings/editPassword') {
+    await UserControl.changePassword(
+      objectData as unknown as UserUpdatePassType,
+    );
   } else if (window.location.pathname === '/sign-up') {
     await AuthControl.signup(objectData as unknown as UserSign);
     await AuthControl.getUser();
@@ -41,6 +43,21 @@ export async function Submit(e: SubmitEvent): Promise<boolean> {
   }
   console.log(objectData);
   return true;
+}
+
+export async function SubmitPhoto(e: SubmitEvent): Promise<boolean> {
+  e.preventDefault();
+  const form = e.target as HTMLFormElement;
+  if (form.classList.contains('modal-body')) {
+    const formData1 = new FormData();
+    const input = form.querySelector('.modal-body_input') as HTMLInputElement;
+    if (input.files) {
+      formData1.set('avatar', input?.files[0]);
+      UserControl.changeAvatar(formData1);
+      return true;
+    }
+  }
+  return Submit(e);
 }
 
 export function Focus(e: InputEvent): void {

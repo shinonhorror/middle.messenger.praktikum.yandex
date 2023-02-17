@@ -1,20 +1,20 @@
 import '../style/index.scss';
 import Login from '~src/layouts/login';
-import Error from '~src/layouts/errors';
+import { ErrorClass } from '~src/layouts/errors';
 import Signin from '~src/layouts/signup';
 import Router from '~src/services/Router';
 import { ProfileClass } from '~src/layouts/profile';
 import { ChatClass } from '~src/layouts/chat';
-import { store } from '~src/services/Store';
+import AuthControl from '~src/controllers/AuthControl';
 
 enum Routes {
   Log = '/',
   Auth = '/sign-up',
-  Prof = '/profile',
+  Prof = '/settings',
   Messages = '/messenger',
   NorFound = '/404',
-  Set = '/edit-profile',
-  Password = '/change-password',
+  Set = '/settings/edit',
+  Password = '/settings/editPassword',
   Err = '/500',
 }
 
@@ -23,20 +23,27 @@ window.addEventListener('DOMContentLoaded', async () => {
   router
     .use(Routes.Log, Login)
     .use(Routes.Auth, Signin)
-    .use(Routes.Err, Error)
-    .use(Routes.NorFound, Error)
+    .use(Routes.Err, ErrorClass)
+    .use(Routes.NorFound, ErrorClass)
     .use(Routes.Prof, ProfileClass)
     .use(Routes.Messages, ChatClass)
     .use(Routes.Password, ProfileClass)
     .use(Routes.Set, ProfileClass)
     .start();
-  const user = store.getState();
-  if (user.isAuth) {
-    router.start();
-  } else {
-    router.start();
-    router.go(Routes.Log);
+  const user = await AuthControl.getUser();
+  if (user) {
+    if (user && window.location.pathname === Routes.Log) {
+      router.go(Routes.Prof);
+    }
   }
+  if (window.location.pathname === '*') {
+    if (user) {
+      router.go(Routes.Prof);
+    } else {
+      router.go(Routes.Log);
+    }
+  }
+  router.start();
 });
 
 export default router;

@@ -26,6 +26,7 @@
 		"no-continue": "off",
 		"func-names":"off",
 		"no-restricted-globals": "off", //потом включить
-		"no-alert": "off"
+		"no-alert": "off",
+		"no-nested-ternary": "off"
   }
 }

@@ -8,7 +8,7 @@ import {
 import LinkButton from '~src/components/linkButton';
 import ChatControl from '~src/controllers/ChatControl';
 import router from '~src/js';
-import Dropdown from '~src/components/dropdown';
+import { DropdownClass } from '~src/components/dropdown';
 import connect from '~src/services/Connector';
 import WebSocketControl from '~src/controllers/WebSocketControl';
 import { ChatType } from '~src/types/ChatTypes';
@@ -16,6 +16,7 @@ import { UserType } from '~src/types/UserTypes';
 
 type ChatTypeBase = {
   button: Component;
+  link: Component;
   avatar: unknown;
   chats: Component;
   messages: Component;
@@ -46,13 +47,43 @@ export class Chat extends Component<ChatTypeBase> {
           },
         },
       }),
+      link: new LinkButton({
+        linkClass: 'chat__line-link',
+        title: 'Профиль',
+        events: {
+          click: (e: Event) => {
+            e.preventDefault();
+            router.go('/settings');
+          },
+        },
+      }),
+      dropdown: new DropdownClass({}),
+      events: {
+        submit: Submit,
+        focus: Focus,
+        blur: Blur,
+        input: Input,
+        submitPhoto: (e: SubmitEvent) => {
+          e.preventDefault();
+          const form = e.target as HTMLFormElement;
+          if (form.classList.contains('modal-body')) {
+            const formData1 = new FormData();
+            const inputForm = form.querySelector(
+              '.modal-body_input',
+            ) as HTMLInputElement;
+            if (inputForm.files) {
+              if (this._props.active) {
+                formData1.set('chatId', this._props.active.id);
+                formData1.set('avatar', inputForm?.files[0]);
+                ChatControl.updateChatAvatar(formData1);
+                return true;
+              }
+            }
+          }
+          return false;
+        },
+      },
     });
-    this._props.events = {
-      submit: Submit,
-      focus: Focus,
-      blur: Blur,
-      input: Input,
-    };
     ChatControl.getChats();
     if (this._props.active) {
       WebSocketControl.init(this._props.user.id, this._props.active.id);
@@ -60,15 +91,6 @@ export class Chat extends Component<ChatTypeBase> {
   }
 
   render(): DocumentFragment {
-    this._children.dropdown = new Dropdown({
-      links: [
-        { title: 'Информация о чате', linkClass: 'item-info' },
-        { title: 'Добавить пользователя', linkClass: 'item-add' },
-        { title: 'Удалить пользователя', linkClass: 'item-del' },
-        { title: 'Удалить чат', linkClass: 'item-delete-chat' },
-      ],
-      btnClass: 'fa-ellipsis-vertical',
-    });
     this._children.chats = new ChatItemClass({});
     this._children.messages = new MessageItemClass({});
     return this.compile(tpl, { ...this._props });
@@ -78,7 +100,9 @@ export class Chat extends Component<ChatTypeBase> {
     if (!this._props.events) {
       return;
     }
-    const { focus, blur, input } = this._props.events as {
+    const {
+      focus, blur, input, submitPhoto,
+    } = this._props.events as {
       [key: string]: () => void;
     };
     this._element.querySelectorAll('input').forEach((item) => {
@@ -86,36 +110,13 @@ export class Chat extends Component<ChatTypeBase> {
       item.addEventListener('blur', blur);
       item.addEventListener('input', input);
     });
-    const profile = this._element.querySelector('.chat__line-link');
-    profile?.addEventListener('click', (e) => {
-      e.preventDefault();
-      router.go('/profile');
-    });
     const img = this._element.querySelector('.chat__window-user_avatar');
     img?.addEventListener('click', (e) => {
       e.preventDefault();
       openModal(e, '.modal_avatar');
     });
     const modalForm = this._element.querySelector('.modal-body');
-    modalForm?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      if (form.classList.contains('modal-body')) {
-        const formData1 = new FormData();
-        const inputForm = form.querySelector(
-          '.modal-body_input',
-        ) as HTMLInputElement;
-        if (inputForm.files) {
-          if (this._props.active) {
-            formData1.set('chatId', this._props.active.id);
-            formData1.set('avatar', inputForm?.files[0]);
-            ChatControl.updateChatAvatar(formData1);
-            return true;
-          }
-        }
-      }
-      return false;
-    });
+    modalForm?.addEventListener('submit', submitPhoto);
     super.addEvents();
   }
 
@@ -123,7 +124,9 @@ export class Chat extends Component<ChatTypeBase> {
     if (!this._props.events) {
       return;
     }
-    const { focus, blur, input } = this._props.events as {
+    const {
+      focus, blur, input, submitPhoto,
+    } = this._props.events as {
       [key: string]: () => void;
     };
     this._element.querySelectorAll('input').forEach((item) => {
@@ -131,36 +134,13 @@ export class Chat extends Component<ChatTypeBase> {
       item.removeEventListener('blur', blur);
       item.removeEventListener('input', input);
     });
-    const profile = this._element.querySelector('.chat__line-link');
-    profile?.removeEventListener('click', (e) => {
-      e.preventDefault();
-      router.go('/profile');
-    });
     const img = this._element.querySelector('.chat__window-user_avatar');
     img?.removeEventListener('click', (e) => {
       e.preventDefault();
       openModal(e, '.modal_avatar');
     });
     const modalForm = this._element.querySelector('.modal-body');
-    modalForm?.removeEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      if (form.classList.contains('modal-body')) {
-        const formData1 = new FormData();
-        const inputForm = form.querySelector(
-          '.modal-body_input',
-        ) as HTMLInputElement;
-        if (inputForm.files) {
-          if (this._props.active) {
-            formData1.set('chatId', this._props.active.id);
-            formData1.set('avatar', inputForm?.files[0]);
-            ChatControl.updateChatAvatar(formData1);
-            return true;
-          }
-        }
-      }
-      return false;
-    });
+    modalForm?.removeEventListener('submit', submitPhoto);
     super.removeEvents();
   }
 }
