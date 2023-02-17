@@ -5,6 +5,7 @@ const tpl = `
         <h2 class="modal-body_title">{{title}}</h2>
         {{#if search}}
         <input class="modal-body_search" type="text" name="search" placeholder="Введите логин">
+        <span class='error-span'></span>
         {{{button}}}
         <span class='error-span'></span>
         {{/if}}

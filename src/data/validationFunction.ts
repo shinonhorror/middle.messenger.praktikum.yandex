@@ -99,6 +99,7 @@ const validFunction: { [key: string]: (value: string) => string } = {
   oldPassword: validPassword,
   newPassword: validPassword,
   display_name: validMessage,
+  search: validLogin,
 };
 
 export default validFunction;

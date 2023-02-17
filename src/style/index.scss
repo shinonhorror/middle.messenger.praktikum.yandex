@@ -1,4 +1,4 @@
-@import "../layouts/signin/index";
+@import "../layouts/signup/index.scss";
 @import "../layouts/login/index";
 @import "../layouts/chat/index";
 @import "../layouts/errors/index";
@@ -127,7 +127,7 @@ ul[class] {
   }
 }
 
-.error-span {
+.error-span, .error-span_reason {
   font-weight: 400;
   font-size: 8px;
   line-height: 8px;

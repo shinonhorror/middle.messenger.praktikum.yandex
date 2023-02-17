@@ -43,7 +43,7 @@ export default class Signin extends Component<SigninType> {
     const link = this._element.querySelector('.button__link');
     link?.addEventListener('click', (e) => {
       e.preventDefault();
-      router.go('/sign-in');
+      router.go('/');
     });
     if (!this._props.events) {
       return;
@@ -63,7 +63,7 @@ export default class Signin extends Component<SigninType> {
     const link = this._element.querySelector('.button__link');
     link?.removeEventListener('click', (e) => {
       e.preventDefault();
-      router.go('/sign-in');
+      router.go('/');
     });
     if (!this._props.events) {
       return;

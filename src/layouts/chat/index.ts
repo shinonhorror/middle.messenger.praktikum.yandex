@@ -22,7 +22,7 @@ type ChatTypeBase = {
   dropdown: Component;
   title: string;
   searching?: Component;
-  active?: Array<ChatType>;
+  active?: ChatType;
   chat?: Array<ChatType>;
   user: UserType;
 };
@@ -55,7 +55,7 @@ export class Chat extends Component<ChatTypeBase> {
     };
     ChatControl.getChats();
     if (this._props.active) {
-      WebSocketControl.init(this._props.user.id, this._props.active[0].id);
+      WebSocketControl.init(this._props.user.id, this._props.active.id);
     }
   }
 
@@ -81,12 +81,11 @@ export class Chat extends Component<ChatTypeBase> {
     const { focus, blur, input } = this._props.events as {
       [key: string]: () => void;
     };
-    const message = this._element.querySelector(
-      '.chat__window-message_input',
-    ) as HTMLInputElement;
-    message.addEventListener('focus', focus);
-    message.addEventListener('blur', blur);
-    message.addEventListener('input', input);
+    this._element.querySelectorAll('input').forEach((item) => {
+      item.addEventListener('focus', focus);
+      item.addEventListener('blur', blur);
+      item.addEventListener('input', input);
+    });
     const profile = this._element.querySelector('.chat__line-link');
     profile?.addEventListener('click', (e) => {
       e.preventDefault();
@@ -108,7 +107,7 @@ export class Chat extends Component<ChatTypeBase> {
         ) as HTMLInputElement;
         if (inputForm.files) {
           if (this._props.active) {
-            formData1.set('chatId', this._props.active[0].id);
+            formData1.set('chatId', this._props.active.id);
             formData1.set('avatar', inputForm?.files[0]);
             ChatControl.updateChatAvatar(formData1);
             return true;
@@ -127,12 +126,11 @@ export class Chat extends Component<ChatTypeBase> {
     const { focus, blur, input } = this._props.events as {
       [key: string]: () => void;
     };
-    const message = this._element.querySelector(
-      '.chat__window-message_input',
-    ) as HTMLInputElement;
-    message.removeEventListener('focus', focus);
-    message.removeEventListener('blur', blur);
-    message.removeEventListener('input', input);
+    this._element.querySelectorAll('input').forEach((item) => {
+      item.removeEventListener('focus', focus);
+      item.removeEventListener('blur', blur);
+      item.removeEventListener('input', input);
+    });
     const profile = this._element.querySelector('.chat__line-link');
     profile?.removeEventListener('click', (e) => {
       e.preventDefault();
@@ -142,6 +140,26 @@ export class Chat extends Component<ChatTypeBase> {
     img?.removeEventListener('click', (e) => {
       e.preventDefault();
       openModal(e, '.modal_avatar');
+    });
+    const modalForm = this._element.querySelector('.modal-body');
+    modalForm?.removeEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      if (form.classList.contains('modal-body')) {
+        const formData1 = new FormData();
+        const inputForm = form.querySelector(
+          '.modal-body_input',
+        ) as HTMLInputElement;
+        if (inputForm.files) {
+          if (this._props.active) {
+            formData1.set('chatId', this._props.active.id);
+            formData1.set('avatar', inputForm?.files[0]);
+            ChatControl.updateChatAvatar(formData1);
+            return true;
+          }
+        }
+      }
+      return false;
     });
     super.removeEvents();
   }

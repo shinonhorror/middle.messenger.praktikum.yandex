@@ -18,10 +18,21 @@ class WebSocketControl {
   }
 
   public send(message: string) {
-    this.socket?.send(JSON.stringify({
-      content: message,
-      type: 'message',
-    }));
+    this.socket?.send(
+      JSON.stringify({
+        content: message,
+        type: 'message',
+      }),
+    );
+  }
+
+  public sendFile(message: string) {
+    this.socket?.send(
+      JSON.stringify({
+        content: message,
+        type: 'file',
+      }),
+    );
   }
 
   public disconnect() {

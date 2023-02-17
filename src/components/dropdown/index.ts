@@ -30,11 +30,11 @@ export default class Dropdown extends Component<DropdownType> {
   }
 
   addEvents(): void {
-    const activeChat = store.getState().active as Array<ChatType>;
+    const activeChat = store.getState().active as ChatType;
     if (!activeChat) {
       return;
     }
-    const { id } = activeChat[0];
+    const { id } = activeChat;
     this._element
       .querySelectorAll('.dropdown__content-link')
       .forEach((link: HTMLElement) => {

@@ -5,14 +5,15 @@ const host = 'https://ya-praktikum.tech';
 const signInAPIInstance = new HTTPTransport(`${host}/api/v2/auth`);
 
 export default class AuthAPI {
-  request(body: UserSign, path: string) {
-    return signInAPIInstance.post(path, {
-      method: 'POST',
-      data: body,
-    });
+  request(body: UserSign, path: string): Promise<XMLHttpRequest> {
+    return signInAPIInstance
+      .post(path, {
+        method: 'POST',
+        data: body,
+      });
   }
 
-  user(): Promise<any> {
+  user(): Promise<UserSign> {
     return signInAPIInstance
       .get('/user', {
         method: 'GET',
@@ -20,7 +21,7 @@ export default class AuthAPI {
       .then((data) => data.response);
   }
 
-  delete() {
+  delete(): Promise<XMLHttpRequest> {
     return signInAPIInstance.post('/logout', {
       method: 'POST',
       expires: 0,

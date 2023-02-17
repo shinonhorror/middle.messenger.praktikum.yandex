@@ -40,8 +40,8 @@ class ChatControl {
       await chatApi.delete(id);
       await this.getChats();
       store.set('mess', undefined);
-      const activeChat = store.getState().chat as any;
-      store.set('active', activeChat.length !== 0 ? activeChat : undefined);
+      const activeChat = store.getState().chat[0] as any;
+      store.set('active', activeChat || undefined);
     } catch (e: any) {
       console.error(e);
       alert('У вас нет доступа к удалению чата');
@@ -73,7 +73,8 @@ class ChatControl {
 
   public async updateChatAvatar(data: FormData) {
     try {
-      await chatApi.updateAvatar(data);
+      const active = await chatApi.updateAvatar(data);
+      this.setActiveChat(active);
       await this.getChats();
     } catch (e: any) {
       console.error(e);
@@ -84,7 +85,7 @@ class ChatControl {
     return chatApi.token(id);
   }
 
-  public setActiveChat(data: Array<ChatType>) {
+  public setActiveChat(data: ChatType) {
     store.set('active', data);
   }
 }

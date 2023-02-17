@@ -5,7 +5,10 @@ const host = 'https://ya-praktikum.tech';
 const userAPIInstance = new HTTPTransport(`${host}/api/v2/user`);
 
 export default class UserAPI {
-  update(body: UserUpdateType | UserUpdatePassType, path: string) {
+  update(
+    body: UserUpdateType | UserUpdatePassType,
+    path: string,
+  ): Promise<XMLHttpRequest> {
     return userAPIInstance
       .put(path, {
         method: 'PUT',
@@ -14,7 +17,7 @@ export default class UserAPI {
       .then((data) => data.response);
   }
 
-  updateAvatar(file: FormData) {
+  updateAvatar(file: FormData): Promise<XMLHttpRequest> {
     return userAPIInstance
       .put('/profile/avatar', {
         method: 'PUT',
@@ -23,7 +26,7 @@ export default class UserAPI {
       .then((data) => data.response);
   }
 
-  search(body: { [key: string]: FormDataEntryValue }) {
+  search(body: { [key: string]: FormDataEntryValue }): Promise<XMLHttpRequest> {
     return userAPIInstance
       .post('/search', {
         method: 'POST',

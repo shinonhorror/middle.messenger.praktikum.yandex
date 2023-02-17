@@ -8,7 +8,7 @@ import { ChatType } from '~src/types/ChatTypes';
 type UserSearchBaseType = {
   users?: Array<Record<string, string>>;
   searchType?: string;
-  active?: Array<ChatType>;
+  active?: ChatType;
 };
 export class UserSearch extends Component<UserSearchBaseType> {
   constructor(props: UserSearchBaseType) {
@@ -30,14 +30,14 @@ export class UserSearch extends Component<UserSearchBaseType> {
       item.addEventListener('click', (e) => {
         e.preventDefault();
         if (this._props.active) {
-          const { id } = this._props.active[0];
+          const { id } = this._props.active;
           if (this._props.searchType === 'add') {
             ChatControl.addUser({
               users: [item.dataset.id as string],
               chatId: id as string,
             });
           } else if (this._props.searchType === 'delete') {
-            if (this._props.active[0].created_by === Number(item.dataset.id)) {
+            if (this._props.active.created_by === Number(item.dataset.id)) {
               const span = document.querySelector('.error-span') as HTMLElement;
               span.textContent = 'Вы не можете удалить создателя чата!';
               return;

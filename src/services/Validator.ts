@@ -6,8 +6,12 @@ export default function validator(element: HTMLInputElement):boolean {
   const reg = new RegExp(expression);
   const parent = element.parentElement as HTMLElement;
   const span = element.nextElementSibling || parent.nextElementSibling as HTMLSpanElement;
-  if (element.name === 'search' || element.name === 'avatar') {
+  if (element.name === 'avatar') {
     return true;
+  }
+  const spanReason = document.querySelector('.error-span_reason') as HTMLElement;
+  if (spanReason) {
+    spanReason.textContent = '';
   }
   const validation = validFunction[element.name];
   const { value } = element;

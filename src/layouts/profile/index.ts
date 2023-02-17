@@ -31,6 +31,7 @@ export class Profile extends Component<ProfileType> {
       ...props,
       defaultAvatar: avatar,
     });
+    AuthControl.authUser();
   }
 
   render(): DocumentFragment {

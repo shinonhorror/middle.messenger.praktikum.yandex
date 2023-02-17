@@ -1,6 +1,6 @@
 @import "../../style/vars";
-.modal_avatar{
-   &-active {
+.modal_avatar {
+  &-active {
     opacity: 1;
     pointer-events: auto;
     overflow-y: auto;
@@ -43,8 +43,14 @@
     align-items: stretch;
     &__item {
       display: flex;
+      flex-direction: row;
       padding: 10px 10px;
       align-items: center;
+      &-role {
+        color: $inactive-link;
+        font-size: 12px;
+        margin-left: auto;
+      }
       img {
         margin-right: 10px;
         width: 30px;
@@ -156,14 +162,11 @@
       border-radius: 5px;
       width: 300px;
       padding: 8px;
-
       &::placeholder {
         text-align: center;
       }
-
       outline: none;
       border: none;
-      margin-bottom: 14px;
     }
   }
 
@@ -361,6 +364,12 @@
       max-width: 100%;
       background: $background;
       align-items: center;
+      &_wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        cursor: pointer;
+      }
       &_add {
         margin-right: 10px;
         cursor: pointer;
@@ -368,6 +377,12 @@
         background: transparent;
         &:hover {
           color: $button;
+        }
+        &-input {
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
         }
         font-size: 20px;
       }

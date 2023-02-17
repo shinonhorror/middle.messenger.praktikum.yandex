@@ -4,7 +4,7 @@ const host = 'https://ya-praktikum.tech';
 const resourceAPIInstance = new HTTPTransport(`${host}/api/v2/resources`);
 
 export default class ResourceAPI {
-  public request(pathname: string) {
+  public request(pathname: string): Promise<string | XMLHttpRequest> {
     return resourceAPIInstance
       .get(pathname, {
         method: 'GET',
@@ -12,7 +12,7 @@ export default class ResourceAPI {
       .then((data) => data.responseURL);
   }
 
-  public create(body:FormData) {
+  public create(body: FormData): Promise<XMLHttpRequest> {
     return resourceAPIInstance
       .post('', {
         method: 'POST',

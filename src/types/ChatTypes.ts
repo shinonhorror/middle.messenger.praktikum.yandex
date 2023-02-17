@@ -17,7 +17,7 @@ export interface ChatType {
 
 export type ChatItemType = {
   chat: Array<ChatType>;
-  active: Array<ChatType>;
+  active: ChatType;
   user: UserType;
   defaultAvatar: unknown;
 };

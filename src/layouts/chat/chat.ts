@@ -17,20 +17,21 @@ const tpl = `
       name="search"
       placeholder="Поиск"
     />
+    <span class='error-span'></span>
     {{{button}}}
     <div class="chat__list">
       {{{chats}}}
     </div>
   </div>
   <div class="chat__window">
-    {{#if active.[0].title}}
+    {{#if active.title}}
     <div class="chat__window-user">
-    {{#if active.[0].avatar}}
-      <img class="chat__window-user_avatar" src="https://ya-praktikum.tech/api/v2/resources{{active.[0].avatar}}" alt="avatar" />
+    {{#if active.avatar}}
+      <img class="chat__window-user_avatar" src="https://ya-praktikum.tech/api/v2/resources{{active.avatar}}" alt="avatar" />
     {{else}}
-    <img class="chat__window-user_avatar" src={{active.[0].defaultAvatar}} alt="avatar" />
+    <img class="chat__window-user_avatar" src={{active.defaultAvatar}} alt="avatar" />
     {{/if}}
-    <h2 class="chat__window-user_name">{{active.[0].title}}</h2>
+    <h2 class="chat__window-user_name">{{active.title}}</h2>
       {{{dropdown}}}
     </div>
     {{{messages}}}
@@ -38,7 +39,7 @@ const tpl = `
     <p class="chat__window-text">Выберите или создайте чат</p>
     {{/if}}
     <div class="chat__window-message">
-      <button class="chat__window-message_add"><i class="fa-solid fa-plus"></i></button>
+    <button class="chat__window-message_add"><i class="fa-solid fa-plus"></i></button>
       <form class="chat__window-message_form">
         <input
           class="chat__window-message_input"

@@ -2,6 +2,7 @@ import AuthAPI from '~src/api/AuthAPI';
 import router from '~src/js';
 import { store } from '~src/services/Store';
 import ResourceControl from './ResourceControl';
+import avatar from '~src/img/avatar.png';
 
 const signInApi = new AuthAPI();
 
@@ -23,7 +24,8 @@ class AuthControl {
       await this.authUser();
       router.go('/profile');
     } catch (e: any) {
-      console.error(e);
+      const span = document.querySelector('.error-span_reason') as HTMLElement;
+      span.textContent = e;
     }
   }
 
@@ -33,14 +35,22 @@ class AuthControl {
       await this.authUser();
       router.go('/profile');
     } catch (e: any) {
-      console.error(e);
+      const span = document.querySelector('.error-span_reason') as HTMLElement;
+      span.textContent = e;
     }
   }
 
   public async authUser() {
     try {
       const user = await signInApi.user();
-      user.avatar = await ResourceControl.getResource(user.avatar);
+      if (user.avatar) {
+        user.avatar = (await ResourceControl.getResource(
+          user.avatar as string,
+        )) as string;
+      } else {
+        user.avatar = avatar;
+      }
+
       store.set('user', user);
       store.set('isAuth', true);
     } catch (e) {
@@ -57,7 +67,7 @@ class AuthControl {
     try {
       await signInApi.delete();
       store.removeState();
-      router.go('/sign-in');
+      router.go('/');
     } catch (e: any) {
       console.error(e);
     }

@@ -25,14 +25,16 @@ export async function Submit(e: SubmitEvent): Promise<boolean> {
     const value = item[1];
     objectData[key] = value;
   });
-  if (window.location.pathname === '/sign-in') {
+  if (window.location.pathname === '/') {
     await AuthControl.login(objectData as unknown as UserSign);
+    await AuthControl.getUser();
   } else if (window.location.pathname === '/edit-profile') {
     await UserControl.changeProfile(objectData as unknown as UserUpdateType);
   } else if (window.location.pathname === '/change-password') {
     await UserControl.changePassword(objectData as unknown as UserUpdatePassType);
   } else if (window.location.pathname === '/sign-up') {
     await AuthControl.signup(objectData as unknown as UserSign);
+    await AuthControl.getUser();
   } else if (window.location.pathname === '/messenger' && objectData.message) {
     WebSocketControl.send(objectData.message as string);
     await ChatControl.getChats();

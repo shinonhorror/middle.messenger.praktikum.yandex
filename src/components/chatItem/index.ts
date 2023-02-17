@@ -29,15 +29,11 @@ export default class ChatItem extends Component<ChatItemType> {
         item.addEventListener('click', (e: Event) => {
           const element = e.currentTarget as HTMLElement;
           const chats = store.getState().chat as Array<ChatType>;
-          const activeChat = chats.filter(
+          const activeChat = chats.find(
             (el: { [key: string]: any }) => el.id === Number(element.dataset.id),
           );
-          const a = chats.find(
-            (el: ChatType) => el.id === Number(element.dataset.id)
-          );
-          console.log(a)
-          ChatControl.setActiveChat(activeChat);
-          WebSocketControl.init(this._props.user.id, this._props.active[0].id);
+          ChatControl.setActiveChat(activeChat as ChatType);
+          WebSocketControl.init(this._props.user.id, this._props.active.id);
         });
         menu.addEventListener('click', (e: Event): void => {
           e.stopPropagation();
@@ -82,12 +78,11 @@ export default class ChatItem extends Component<ChatItemType> {
         item.removeEventListener('click', async (e: Event) => {
           const element = e.currentTarget as HTMLElement;
           const chats = store.getState().chat as Array<ChatType>;
-          const activeChat = chats.filter(
+          const activeChat = chats.find(
             (el: { [key: string]: any }) => el.id === Number(element.dataset.id),
           );
-          ChatControl.setActiveChat(activeChat);
-          await ChatControl.getChats();
-          WebSocketControl.init(this._props.user.id, this._props.active[0].id);
+          ChatControl.setActiveChat(activeChat as ChatType);
+          WebSocketControl.init(this._props.user.id, this._props.active.id);
         });
         menu.removeEventListener('click', (e: Event): void => {
           e.stopPropagation();

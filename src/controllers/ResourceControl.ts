@@ -8,6 +8,11 @@ class ResourceControl {
     return url;
   }
 
+  public async getCreatedResource(data: FormData) {
+    const resource = await this.createResource(data);
+    return resource;
+  }
+
   public async createResource(data: FormData) {
     try {
       await resourceApi.create(data);
