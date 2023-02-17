@@ -1,5 +1,7 @@
+import AuthControl from '~src/controllers/AuthControl';
 import Component from './Component';
 import Route from './Route';
+import { store } from './Store';
 
 interface ComponentsType<T = { [x: string]: unknown }> {
   new (props: T): Component<T>;
@@ -48,6 +50,12 @@ export default class Router {
     if (!route) {
       this.go('/404');
       return;
+    }
+    if (pathname === '/' || pathname === '/sign-up') {
+      if (store.getState().isAuth) {
+        AuthControl.logout();
+        return;
+      }
     }
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
