@@ -3,11 +3,16 @@ import tpl from './errors';
 import Component from '../../services/Component';
 
 type ErrorType = {
-  chat: string;
-  code:string;
-  desc:string;
+  error: boolean;
 };
 export default class Error extends Component<ErrorType> {
+  constructor(type: boolean = true) {
+    super('div');
+    this.setProps({
+      error: type,
+    });
+  }
+
   render(): DocumentFragment {
     return this.compile(tpl);
   }

@@ -20,6 +20,12 @@
     "no-console": "off",
     "no-useless-escape": "off",
     "max-len": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+		"no-restricted-syntax": "off",
+		"max-classes-per-file": "off",
+		"no-continue": "off",
+		"func-names":"off",
+		"no-restricted-globals": "off", //потом включить
+		"no-alert": "off"
   }
 }

@@ -1,39 +1,38 @@
-const tpl = `<div class="chat">
+const tpl = `
+<div class="chat">
   <div class="chat__line">
-    <a class="chat__line-link" href={{profile}}>Профиль</a>
+    <a class="chat__line-link">Профиль</a>
     <input
       class="chat__line-input"
       type="search"
       name="search"
       placeholder="Поиск"
     />
+    {{{button}}}
     <div class="chat__list">
       {{{chats}}}
     </div>
   </div>
   <div class="chat__window">
-    {{! <p class="chat__window-text">
-Выберите чат чтобы отправить сообщение
-</p> }}
+    {{#if active.[0].title}}
     <div class="chat__window-user">
-      <img class="chat__window-user_avatar" src={{avatar}} alt="avatar" />
-      <h2 class="chat__window-user_name">Вадим</h2>
-      <button class="chat__window-user_settings"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+      <img class="chat__window-user_avatar" src={{active.[0].avatar}} alt="avatar" />
+      <h2 class="chat__window-user_name">{{active.[0].title}}</h2>
+      {{{dropdown}}}
     </div>
-    <div class="chat__window-core">
-      <p class="chat__window-date">19 июня</p>
-      {{{messages}}}
-    </div>
+    {{{messages}}}
+    {{else}}
+    <p class="chat__window-text">Выберите или создайте чат</p>
+    {{/if}}
     <div class="chat__window-message">
       <button class="chat__window-message_add"><i class="fa-solid fa-plus"></i></button>
-      <form class="chat__window-message_form" action="submit">
+      <form class="chat__window-message_form">
         <input
           class="chat__window-message_input"
           type="text"
           placeholder="Сообщение"
           name="message"
         />
-       
         <button class="chat__window-message_send" type="submit"><i class="fa-solid fa-arrow-right"></i></button>
       </form>
     </div>
@@ -41,3 +40,5 @@ const tpl = `<div class="chat">
 </div>`;
 
 export default tpl;
+
+// <p class="chat__window-date">19 июня</p>;

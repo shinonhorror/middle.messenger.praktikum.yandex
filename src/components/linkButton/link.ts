@@ -1,5 +1,5 @@
-const tpl = `{{#data}}<button class={{buttonClass}}>
-<a class={{linkClass}} href={{href}}>{{title}}</a>
-</button>{{/data}}`;
+const tpl = `<button class={{buttonClass}} data-link = {{link}}>
+<a class={{linkClass}}>{{title}}</a>
+</button>`;
 
 export default tpl;
