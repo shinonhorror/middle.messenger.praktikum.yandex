@@ -33,6 +33,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const user = store.getState();
   if (user.isAuth) {
     router.start();
+    router.go(Routes.Prof);
   } else {
     router.start();
     router.go(Routes.Log);

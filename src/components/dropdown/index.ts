@@ -105,49 +105,79 @@ export default class Dropdown extends Component<DropdownType> {
     super.addEvents();
   }
 
-  // removeEvents(): void {
-  //   this._element
-  //     .querySelectorAll('.dropdown__content-link')
-  //     .forEach((link: HTMLElement) => {
-  //       const classLink = link.dataset.class;
-  //       if (classLink === 'item-delete-chat') {
-  //         link.removeEventListener('click', (e) => {
-  //           e.preventDefault();
-  //           const activeChat = document.querySelector('.active') as HTMLElement;
-  //           if (activeChat) {
-  //             ChatControl.deleteChat({
-  //               chatId: activeChat.dataset.id as string,
-  //             });
-  //           }
-  //         });
-  //       } else if (classLink === 'item-add') {
-  //         link.removeEventListener('click', (e) => {
-  //           openModal(e);
-  //         });
-  //       } else if (classLink === 'item-del') {
-  //         link.addEventListener('click', (e) => {
-  //           openModal(e);
-  //         });
-  //       }
-  //     });
-  //   const modalForm = this._element.querySelector('.modal-body');
-  //   modalForm?.removeEventListener('submit', async (e: SubmitEvent) => {
-  //     e.preventDefault();
-  //     const form = e.target as HTMLFormElement;
-  //     const formData = new FormData(form);
-  //     const objectData: { [key: string]: FormDataEntryValue } = {};
-  //     const mas = formData.entries();
-  //     Array.from(mas).forEach((item) => {
-  //       const key = 'login';
-  //       const value = item[1];
-  //       objectData[key] = value;
-  //     });
-  //     const users = await UserControl.searchUser(objectData);
-  //     this._children.searching.setProps({
-  //       users,
-  //     });
-  //     return true;
-  //   });
-  //   super.removeEvents();
-  // }
+  removeEvents(): void {
+    const activeChat = store.getState().active as ChatType;
+    if (!activeChat) {
+      return;
+    }
+    const { id } = activeChat;
+    this._element
+      .querySelectorAll('.dropdown__content-link')
+      .forEach((link: HTMLElement) => {
+        const classLink = link.dataset.class;
+        if (classLink === 'item-delete-chat') {
+          link.removeEventListener('click', () => {
+            if (activeChat) {
+              ChatControl.deleteChat({
+                chatId: id as string,
+              });
+            }
+          });
+        } else if (classLink === 'item-add') {
+          link.removeEventListener('click', (e) => {
+            this.setProps({
+              title: 'Добавить пользователя',
+              search: true,
+            });
+            this._children.searching.setProps({
+              searchType: 'add',
+            });
+            openModal(e);
+          });
+        } else if (classLink === 'item-del') {
+          link.removeEventListener('click', (e) => {
+            this.setProps({
+              title: 'Удалить пользователя',
+              search: true,
+            });
+            this._children.searching.setProps({
+              searchType: 'delete',
+            });
+            openModal(e);
+          });
+        } else if (classLink === 'item-info') {
+          link.removeEventListener('click', async (e) => {
+            this.setProps({
+              title: 'Информация о чате',
+              search: false,
+            });
+            const users = await ChatControl.getUsers(id);
+            this._children.searching.setProps({
+              searchType: 'info',
+              users,
+            });
+            openModal(e);
+          });
+        }
+      });
+    const modalForm = this._element.querySelector('.modal-body');
+    modalForm?.removeEventListener('submit', async (e: SubmitEvent) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      const formData = new FormData(form);
+      const objectData: { [key: string]: FormDataEntryValue } = {};
+      const mas = formData.entries();
+      Array.from(mas).forEach((item) => {
+        const key = 'login';
+        const value = item[1];
+        objectData[key] = value;
+      });
+      const users = await UserControl.searchUser(objectData);
+      this._children.searching.setProps({
+        users,
+      });
+      return true;
+    });
+    super.removeEvents();
+  }
 }

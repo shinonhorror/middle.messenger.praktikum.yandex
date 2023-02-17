@@ -38,23 +38,22 @@ export default class Router {
   start() {
     window.onpopstate = (event) => {
       const target = event.currentTarget as Window;
-      this._onRoute(target.location.pathname);
+      this.go(target.location.pathname);
     };
-    this._onRoute(window.location.pathname);
+    this.go(window.location.pathname);
   }
 
   _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
     if (!route) {
+      this.go('/404');
       return;
     }
-
     if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
-    route.render();
-    // route.navigate(pathname);
+    route.navigate(pathname);
   }
 
   back() {
