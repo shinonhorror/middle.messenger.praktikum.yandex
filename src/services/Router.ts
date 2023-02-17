@@ -1,7 +1,5 @@
-import AuthControl from '~src/controllers/AuthControl';
 import Component from './Component';
 import Route from './Route';
-import { store } from './Store';
 
 interface ComponentsType<T = { [x: string]: unknown }> {
   new (props: T): Component<T>;
