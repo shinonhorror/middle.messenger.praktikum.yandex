@@ -30,13 +30,13 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.Password, ProfileClass)
     .use(Routes.Set, ProfileClass)
     .start();
-  const user = store.getState();
-  if (user.isAuth) {
-    router.start();
-  } else {
-    router.start();
-    router.go(Routes.Log);
-  }
+  // const user = store.getState();
+  // if (user.isAuth) {
+  //   router.start();
+  // } else {
+  //   router.start();
+  //   router.go(Routes.Log);
+  // }
 });
 
 export default router;
