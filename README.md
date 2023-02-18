@@ -3,7 +3,7 @@
 - Макет в Figma [https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0](https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0)
 - Опубликованное приложение в Netify: https://mchat-app-yandex.netlify.app/
 
-## Ссылка на PR https://github.com/shinonhorror/middle.messenger.praktikum.yandex/pull/3
+## Ссылка на PR https://github.com/shinonhorror/middle.messenger.praktikum.yandex/pull/4
 
 ## Описание приложения
 
