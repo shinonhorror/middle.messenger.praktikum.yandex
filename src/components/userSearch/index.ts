@@ -17,34 +17,33 @@ export class UserSearch extends Component<UserSearchBaseType> {
       click: (e:Event) => {
         e.preventDefault();
         const item = e.currentTarget as HTMLElement;
+        const modal = document.querySelector('.modal');
+        const span = this._element.querySelector('.error-span');
         if (item) {
           if (this._props.active) {
             const { id } = this._props.active;
             if (this._props.searchType === 'add') {
+              if (modal) {
+                modal.classList.remove('modal-active');
+              }
               ChatControl.addUser({
                 users: [item.dataset.id as string],
                 chatId: id as string,
               });
             } else if (this._props.searchType === 'delete') {
               if (this._props.active.created_by === Number(item.dataset.id)) {
-                const span = document.querySelector('.error-span') as HTMLElement;
-                span.textContent = 'Вы не можете удалить создателя чата!';
-                return;
+                if (span) {
+                  span.textContent = 'Вы не можете удалить создателя чата!';
+                }
+              } else {
+                ChatControl.deleteUser({
+                  users: [item.dataset.id as string],
+                  chatId: id as string,
+                });
               }
-              ChatControl.deleteUser({
-                users: [item.dataset.id as string],
-                chatId: id as string,
-              });
-            } else {
-              return;
             }
-          } else {
-            return;
           }
         }
-
-        const modal = document.querySelector('.modal') as HTMLElement;
-        modal.classList.remove('modal-active');
       },
     };
     this._element.classList.add('modal-body_result');
