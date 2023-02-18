@@ -9,7 +9,7 @@ export default function validator(element: HTMLInputElement):boolean {
   if (element.name === 'avatar') {
     return true;
   }
-  const spanReason = document.querySelector('.error-span_reason') as HTMLElement;
+  const spanReason = document.querySelector('.error-span-reason') as HTMLElement;
   if (spanReason) {
     spanReason.textContent = '';
   }
