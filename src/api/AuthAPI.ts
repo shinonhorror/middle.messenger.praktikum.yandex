@@ -1,8 +1,7 @@
 import { UserSign } from '~src/types/UserTypes';
 import HTTPTransport from './HTTPTransport';
 
-const host = 'https://ya-praktikum.tech';
-const signInAPIInstance = new HTTPTransport(`${host}/api/v2/auth`);
+const signInAPIInstance = new HTTPTransport('/auth');
 
 export default class AuthAPI {
   request(body: UserSign, path: string): Promise<XMLHttpRequest> {

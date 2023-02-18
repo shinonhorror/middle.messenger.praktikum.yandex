@@ -3,8 +3,7 @@ import {
 } from '~src/types/ChatTypes';
 import HTTPTransport from './HTTPTransport';
 
-const host = 'https://ya-praktikum.tech';
-const chatAPIInstance = new HTTPTransport(`${host}/api/v2/chats`);
+const chatAPIInstance = new HTTPTransport('/chats');
 
 export default class ChatAPI {
   request(path: string): Promise<Array<ChatType>> {

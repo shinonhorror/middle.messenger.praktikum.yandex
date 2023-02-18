@@ -6,7 +6,7 @@ enum METHODS {
   POST = 'POST',
   DELETE = 'DELETE',
 }
-
+const API_YANDEX = 'https://ya-praktikum.tech/api/v2';
 interface Options {
   method: string;
   timeout?: number;
@@ -69,8 +69,8 @@ export default class HTTPTransport {
       xhr.open(
         method,
         isGet && !!data
-          ? `${this.url + url}${queryStringify(data)}`
-          : this.url + url,
+          ? `${API_YANDEX}${this.url + url}${queryStringify(data)}`
+          : API_YANDEX + this.url + url,
       );
 
       if (!(data instanceof FormData)) {

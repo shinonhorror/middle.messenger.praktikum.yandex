@@ -1,7 +1,6 @@
 import HTTPTransport from './HTTPTransport';
 
-const host = 'https://ya-praktikum.tech';
-const resourceAPIInstance = new HTTPTransport(`${host}/api/v2/resources`);
+const resourceAPIInstance = new HTTPTransport('/resources');
 
 export default class ResourceAPI {
   public request(pathname: string): Promise<string> {

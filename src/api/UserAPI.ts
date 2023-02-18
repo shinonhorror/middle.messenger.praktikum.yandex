@@ -1,8 +1,7 @@
 import { UserUpdatePassType, UserUpdateType, UserType } from '~src/types/UserTypes';
 import HTTPTransport from './HTTPTransport';
 
-const host = 'https://ya-praktikum.tech';
-const userAPIInstance = new HTTPTransport(`${host}/api/v2/user`);
+const userAPIInstance = new HTTPTransport('/user');
 
 export default class UserAPI {
   update(
