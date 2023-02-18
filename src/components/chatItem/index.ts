@@ -49,18 +49,6 @@ export default class ChatItem extends Component<ChatItemType> {
           menu.classList.remove('active');
         });
       });
-    document.addEventListener(
-      'click',
-      (e) => {
-        if (e.button !== 2) {
-          this._element.querySelectorAll('.chat__list-item').forEach((item) => {
-            const menu = item.querySelector('.contextmenu') as HTMLElement;
-            menu.classList.remove('active');
-          });
-        }
-      },
-      false,
-    );
     super.addEvents();
   }
 
@@ -98,18 +86,6 @@ export default class ChatItem extends Component<ChatItemType> {
           menu.classList.remove('active');
         });
       });
-    document.removeEventListener(
-      'click',
-      (e) => {
-        if (e.button !== 2) {
-          this._element.querySelectorAll('.chat__list-item').forEach((item) => {
-            const menu = item.querySelector('.contextmenu') as HTMLElement;
-            menu.classList.remove('active');
-          });
-        }
-      },
-      false,
-    );
     super.removeEvents();
   }
 }

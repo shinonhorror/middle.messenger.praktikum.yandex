@@ -57,6 +57,14 @@ export class Chat extends Component<ChatTypeBase> {
         },
       }),
       events: {
+        click: (e:MouseEvent) => {
+          if (e.button !== 2) {
+            this._element.querySelectorAll('.chat__list-item').forEach((item) => {
+              const menu = item.querySelector('.contextmenu') as HTMLElement;
+              menu.classList.remove('active');
+            });
+          }
+        },
         submit: Submit,
         focus: Focus,
         blur: Blur,
