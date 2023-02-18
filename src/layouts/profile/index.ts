@@ -42,7 +42,7 @@ export class Profile extends Component<ProfileType> {
         data:
           window.location.pathname === '/settings'
             ? dataProfile.data
-            : window.location.pathname === '/settings/edit'
+            : window.location.pathname === '/settings-edit'
               ? dataSettings.data
               : inputDataPassword.data,
       }),
@@ -55,7 +55,7 @@ export class Profile extends Component<ProfileType> {
               title: 'Изменить данные',
               events: {
                 click: async () => {
-                  router.go('/settings/edit');
+                  router.go('/settings-edit');
                 },
               },
             }),
@@ -65,7 +65,7 @@ export class Profile extends Component<ProfileType> {
               title: 'Изменить пароль',
               events: {
                 click: async () => {
-                  router.go('/settings/editPassword');
+                  router.go('/settings-password');
                 },
               },
             }),
@@ -104,7 +104,7 @@ export class Profile extends Component<ProfileType> {
           user: this._props.user,
         });
       }
-    } else if (window.location.pathname === '/settings/edit') {
+    } else if (window.location.pathname === '/settings-edit') {
       if (this._props.user) {
         this._children.input.setProps({
           data: dataSettings.data,

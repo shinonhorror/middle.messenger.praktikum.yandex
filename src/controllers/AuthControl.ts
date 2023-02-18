@@ -22,7 +22,7 @@ class AuthControl {
     try {
       await signInApi.request(data, '/signin');
       await this.authUser();
-      router.go('/settings');
+      router.go('/messenger');
     } catch (e: any) {
       const span = document.querySelector('.error-span-reason') as HTMLElement;
       span.textContent = e;

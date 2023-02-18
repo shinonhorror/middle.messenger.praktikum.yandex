@@ -13,8 +13,8 @@ enum Routes {
   Prof = '/settings',
   Messages = '/messenger',
   NorFound = '/404',
-  Set = '/settings/edit',
-  Password = '/settings/editPassword',
+  Set = '/settings-edit',
+  Password = '/settings-password',
   Err = '/500',
 }
 

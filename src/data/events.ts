@@ -28,9 +28,9 @@ export async function Submit(e: SubmitEvent): Promise<boolean> {
   if (window.location.pathname === '/') {
     await AuthControl.login(objectData as unknown as UserSign);
     await AuthControl.getUser();
-  } else if (window.location.pathname === '/settings/edit') {
+  } else if (window.location.pathname === '/settings-edit') {
     await UserControl.changeProfile(objectData as unknown as UserUpdateType);
-  } else if (window.location.pathname === '/settings/editPassword') {
+  } else if (window.location.pathname === '/settings-password') {
     await UserControl.changePassword(
       objectData as unknown as UserUpdatePassType,
     );
