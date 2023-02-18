@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel static/index.html --open --no-cache",
     "start": "node ./server.js",
-    "build": "parcel build static/index.html --no-cache --target default --dist-dir ./dist --public-url ./",
+    "build": "parcel build",
     "fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "author": "",
