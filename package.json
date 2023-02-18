@@ -5,8 +5,8 @@
   "source": "static/index.html",
   "scripts": {
     "dev": "parcel static/index.html --open --no-cache",
-    "start": "node ./server.js",
-    "build": "parcel build",
+    "start": "node ./server.js --no-cache",
+    "build": "parcel build static/index.html",
     "fix": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "author": "",
