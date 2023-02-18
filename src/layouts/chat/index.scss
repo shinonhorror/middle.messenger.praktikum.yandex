@@ -1,18 +1,19 @@
 @import "../../style/vars";
+
 .modal_avatar {
   &-active {
     opacity: 1;
     pointer-events: auto;
     overflow-y: auto;
   }
+
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgb(0 0 0 / 40%);
   z-index: 10;
-  opacity: 0;
   transition: opacity 200ms ease-in;
   pointer-events: none;
   margin: 0;
@@ -21,43 +22,52 @@
   padding-top: 231px;
   padding-left: 70px;
 }
+
 .modal-body {
   width: 340px;
+
   &_search {
     background: $background-chat-input;
     border-radius: 30px;
     outline: none;
     border: none;
-    padding: 10px 10px;
+    padding: 10px;
     width: 80%;
     margin-bottom: 20px;
+
     &::placeholder {
       text-align: center;
     }
   }
+
   &_result {
     width: 100%;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
+
     &__item {
       display: flex;
       flex-direction: row;
-      padding: 10px 10px;
+      padding: 10px;
       align-items: center;
+
       &-role {
         color: $inactive-link;
         font-size: 12px;
         margin-left: auto;
       }
+
       img {
         margin-right: 10px;
         width: 30px;
         height: 30px;
         border-radius: 50%;
       }
+
       cursor: pointer;
+
       &:hover {
         background: $background-chat-message;
         color: $button;
@@ -65,68 +75,90 @@
     }
   }
 }
+
 .dropdown {
   float: right;
   overflow: hidden;
-  &__btn {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    &:hover {
-      color: $button;
-    }
-    &:hover + .dropdown__content {
-      display: block;
-    }
-  }
+
   &__content {
     display: none;
     position: absolute;
-    background: #ffffff;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    background: #fff;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
     border-radius: 12px;
     z-index: 1;
     left: 46vw;
     padding: 10px 0;
+
     &:hover {
       display: block;
     }
+
     &-link {
-      font-size: 12px;
-      line-height: 14px;
-      cursor: pointer;
-      list-style-type: none;
-      padding: 10px 15px;
-      display: block;
-      &:hover {
-        background: $background-chat-message;
-        color: $button;
+      &_delete-chat {
+        color: $exit-link;
+      }
+
+      &_info,
+      &_add,
+      &_delete,
+      &_delete-chat {
+        font-size: 12px;
+        line-height: 14px;
+        cursor: pointer;
+        list-style-type: none;
+        padding: 10px 15px;
+        display: block;
+
+        &:hover {
+          background: $background-chat-message;
+          color: $button;
+        }
       }
     }
   }
+
+  &__btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+      color: $button;
+    }
+
+    &:hover + .dropdown__content {
+      display: block;
+    }
+  }
 }
+
 .contextmenu {
   z-index: 1000;
   position: fixed;
   display: none;
   width: 100px;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
   border-radius: 6px;
   background: $background;
+
   &__list {
     display: flex;
     flex-direction: column;
     padding: 5px 0;
   }
+
   &__item {
     font-size: 10px;
-    padding: 5px 5px;
+    padding: 5px;
     cursor: pointer;
     color: $inactive-link;
+
     &:hover {
       background: $background-chat-input;
     }
   }
+
   &.active {
     display: block;
   }
@@ -136,6 +168,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
+
   &__line {
     padding-top: 21px;
     padding-right: 10px;
@@ -145,6 +178,7 @@
     background: $background;
     display: flex;
     flex-direction: column;
+
     &-link {
       display: block;
       color: $inactive-link;
@@ -153,6 +187,7 @@
       text-align: right;
       margin-bottom: 23px;
       cursor: pointer;
+
       &:hover {
         color: $button;
       }
@@ -163,9 +198,11 @@
       border-radius: 5px;
       width: 300px;
       padding: 8px;
+
       &::placeholder {
         text-align: center;
       }
+
       outline: none;
       border: none;
     }
@@ -236,10 +273,6 @@
       &:hover {
         background: $background-chat-message;
       }
-
-      &.active {
-        background: $background-chat-message;
-      }
     }
   }
 
@@ -252,6 +285,7 @@
     min-width: 650px;
     display: flex;
     flex-direction: column;
+
     &-text {
       margin-top: 30vh;
       text-align: center;
@@ -266,7 +300,7 @@
       border-bottom: 1px solid $border;
       padding: 10px 0;
       align-items: center;
-      width: 100%;
+      max-width: 100%;
       position: sticky;
       background: $background;
 
@@ -365,26 +399,31 @@
       max-width: 100%;
       background: $background;
       align-items: center;
+
       &_wrapper {
         position: relative;
         overflow: hidden;
         display: inline-block;
         cursor: pointer;
       }
+
       &_add {
         margin-right: 10px;
         cursor: pointer;
         border: none;
         background: transparent;
+
         &:hover {
           color: $button;
         }
+
         &-input {
           position: absolute;
           left: 0;
           top: 0;
           opacity: 0;
         }
+
         font-size: 20px;
       }
 
@@ -400,11 +439,11 @@
       &_send {
         cursor: pointer;
         border: none;
-        background: $button;
         border-radius: 50%;
         font-size: 16px;
         color: $base-white;
         background: $background-chat-input;
+
         &:hover {
           background: $button;
         }

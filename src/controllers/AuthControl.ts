@@ -24,7 +24,7 @@ class AuthControl {
       await this.authUser();
       router.go('/settings');
     } catch (e: any) {
-      const span = document.querySelector('.error-span_reason') as HTMLElement;
+      const span = document.querySelector('.error-span-reason') as HTMLElement;
       span.textContent = e;
     }
   }
@@ -35,7 +35,7 @@ class AuthControl {
       await this.authUser();
       router.go('/settings');
     } catch (e: any) {
-      const span = document.querySelector('.error-span_reason') as HTMLElement;
+      const span = document.querySelector('.error-span-reason') as HTMLElement;
       span.textContent = e;
     }
   }

@@ -1,9 +1,10 @@
-@import "../layouts/signup/index.scss";
+@import "../layouts/signup/index";
 @import "../layouts/login/index";
 @import "../layouts/chat/index";
 @import "../layouts/errors/index";
 @import "../layouts/profile/index";
 @import "../style/vars";
+
 body,
 h1,
 h2,
@@ -108,6 +109,7 @@ ul[class] {
     display: block;
     width: 100%;
     cursor: pointer;
+
     &-link {
       color: $button;
     }
@@ -120,6 +122,7 @@ ul[class] {
       background: none;
       padding: 10px 0;
       border: none;
+
       a {
         color: $exit-link;
       }
@@ -127,7 +130,8 @@ ul[class] {
   }
 }
 
-.error-span, .error-span_reason {
+.error-span,
+.error-span-reason {
   font-weight: 400;
   font-size: 8px;
   line-height: 8px;

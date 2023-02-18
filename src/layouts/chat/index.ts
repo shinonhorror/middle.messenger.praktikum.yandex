@@ -51,13 +51,11 @@ export class Chat extends Component<ChatTypeBase> {
         linkClass: 'chat__line-link',
         title: 'Профиль',
         events: {
-          click: (e: Event) => {
-            e.preventDefault();
+          click: () => {
             router.go('/settings');
           },
         },
       }),
-      dropdown: new DropdownClass({}),
       events: {
         submit: Submit,
         focus: Focus,
@@ -91,6 +89,7 @@ export class Chat extends Component<ChatTypeBase> {
   }
 
   render(): DocumentFragment {
+    this._children.dropdown = new DropdownClass({});
     this._children.chats = new ChatItemClass({});
     this._children.messages = new MessageItemClass({});
     return this.compile(tpl, { ...this._props });

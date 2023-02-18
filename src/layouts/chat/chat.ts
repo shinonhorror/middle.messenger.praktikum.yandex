@@ -54,6 +54,3 @@ const tpl = `
 </div>`;
 
 export default tpl;
-
-// <p class="chat__window-date">19 июня</p>;
-// <a class="chat__line-link">Профиль</a>

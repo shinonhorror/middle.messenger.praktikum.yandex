@@ -10,11 +10,11 @@ import LinkButton from '../linkButton';
 import connect from '~src/services/Connector';
 
 type DropdownType = {
+  btnClass: string;
   links?: Component[];
-  btnClass?: string;
+  button?: Component;
   title?: string;
   search?: boolean;
-  button?: Component;
   searching?: Component;
   active: ChatType;
 };
@@ -25,78 +25,29 @@ export default class Dropdown extends Component<DropdownType> {
       btnClass: 'fa-ellipsis-vertical',
       links: [
         new LinkButton({
-          linkClass: 'dropdown__content-link',
+          linkClass: 'dropdown__content-link_info',
           title: 'Информация о чате',
-          events: {
-            click: async (e) => {
-              this.setProps({
-                ...this._props,
-                title: 'Информация о чате',
-                search: false,
-              });
-              const users = await ChatControl.getUsers(
-                this._props.active.id as string,
-              );
-              this._children.searching.setProps({
-                searchType: 'info',
-                users,
-              });
-              openModal(e);
-            },
-          },
         }),
         new LinkButton({
-          linkClass: 'dropdown__content-link',
+          linkClass: 'dropdown__content-link_add',
           title: 'Добавить пользователя',
-          events: {
-            click: (e) => {
-              this.setProps({
-                ...this._props,
-                title: 'Добавить пользователя',
-                search: true,
-              });
-              this._children.searching.setProps({
-                searchType: 'add',
-              });
-              openModal(e);
-            },
-          },
         }),
         new LinkButton({
-          linkClass: 'dropdown__content-link',
+          linkClass: 'dropdown__content-link_delete',
           title: 'Удалить пользователя',
-          events: {
-            click: (e) => {
-              this.setProps({
-                ...this._props,
-                title: 'Удалить пользователя',
-                search: true,
-              });
-              this._children.searching.setProps({
-                searchType: 'delete',
-              });
-              openModal(e);
-            },
-          },
         }),
         new LinkButton({
-          linkClass: 'dropdown__content-link',
+          linkClass: 'dropdown__content-link_delete-chat',
           title: 'Удалить чат',
-          events: {
-            click: () => {
-              if (this._props.active) {
-                ChatControl.deleteChat({
-                  chatId: this._props.active.id as string,
-                });
-              }
-            },
-          },
         }),
       ],
       button: new BaseButton('div', {
         buttonClass: 'button__base',
         title: 'Поиск',
       }),
+    });
+    this.setProps({
+      ...this._props,
       events: {
         submit: async (e: SubmitEvent) => {
           e.preventDefault();
@@ -115,6 +66,50 @@ export default class Dropdown extends Component<DropdownType> {
           });
           return true;
         },
+        infoClick: async (e: Event) => {
+          this.setProps({
+            ...this._props,
+            title: 'Информация о чате',
+            search: false,
+          });
+          const users = await ChatControl.getUsers(
+            this._props.active.id as string,
+          );
+          this._children.searching.setProps({
+            searchType: 'info',
+            users,
+          });
+          openModal(e);
+        },
+        addUserClick: (e: Event) => {
+          this.setProps({
+            ...this._props,
+            title: 'Добавить пользователя',
+            search: true,
+          });
+          this._children.searching.setProps({
+            searchType: 'add',
+          });
+          openModal(e);
+        },
+        deleteUserClick: (e: Event) => {
+          this.setProps({
+            ...this._props,
+            title: 'Удалить пользователя',
+            search: true,
+          });
+          this._children.searching.setProps({
+            searchType: 'delete',
+          });
+          openModal(e);
+        },
+        deleteChat: () => {
+          if (this._props.active) {
+            ChatControl.deleteChat({
+              chatId: this._props.active.id as string,
+            });
+          }
+        },
       },
     });
     this._element.classList.add('dropdown');
@@ -129,11 +124,23 @@ export default class Dropdown extends Component<DropdownType> {
     if (!this._props.events) {
       return;
     }
-    const { submit } = this._props.events as {
+    const {
+      submit, infoClick, addUserClick, deleteUserClick, deleteChat,
+    } = this._props.events as {
       [key: string]: () => void;
     };
     const modalForm = this._element.querySelector('.modal-body');
     modalForm?.addEventListener('submit', submit);
+    const info = this._element.querySelector('.dropdown__content-link_info');
+    info?.addEventListener('click', infoClick);
+    const add = this._element.querySelector('.dropdown__content-link_add');
+    add?.addEventListener('click', addUserClick);
+    const del = this._element.querySelector('.dropdown__content-link_delete');
+    del?.addEventListener('click', deleteUserClick);
+    const delChat = this._element.querySelector(
+      '.dropdown__content-link_delete-chat',
+    );
+    delChat?.addEventListener('click', deleteChat);
     super.addEvents();
   }
 
@@ -141,15 +148,29 @@ export default class Dropdown extends Component<DropdownType> {
     if (!this._props.events) {
       return;
     }
-    const { submit } = this._props.events as {
+    const {
+      submit, infoClick, addUserClick, deleteUserClick, deleteChat,
+    } = this._props.events as {
       [key: string]: () => void;
     };
     const modalForm = this._element.querySelector('.modal-body');
     modalForm?.removeEventListener('submit', submit);
+    const info = this._element.querySelector('.dropdown__content-link');
+    info?.removeEventListener('click', infoClick);
+    const add = this._element.querySelector('.dropdown__content-link_add');
+    add?.removeEventListener('click', addUserClick);
+    const del = this._element.querySelector(
+      '.dropdown__content-link_delete',
+    );
+    del?.removeEventListener('click', deleteUserClick);
+    const delChat = this._element.querySelector(
+      '.dropdown__content-link_delete-chat',
+    );
+    delChat?.removeEventListener('click', deleteChat);
     super.removeEvents();
   }
 }
 
-const withActive = connect((state) => ({ active: { ...(state.active || {}) } }));
+const withActive = connect((state) => ({ ...state }));
 
 export const DropdownClass = withActive(Dropdown);

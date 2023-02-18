@@ -23,9 +23,9 @@ export default class Error extends Component<ErrorType> {
           click: (e: Event) => {
             e.preventDefault();
             if (Object.keys(this._props.user).length !== 0) {
-              router.go("/messenger");
+              router.go('/messenger');
             } else {
-              router.go("/");
+              router.go('/');
             }
           },
         },
