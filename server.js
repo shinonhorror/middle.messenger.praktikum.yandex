@@ -4,12 +4,12 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(`${__dirname}/dist`));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(path.join(__dirname, "dist/index.html")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(`${__dirname}/dist/index.html`));
 });
 
 app.listen(PORT, () => {
-  console.log(`Запуск на порту ${PORT}!`);
+  console.log(`Server started on http://localhost:${PORT}`);
 });
