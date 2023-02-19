@@ -7,5 +7,6 @@ export default function render(
   const root = document.querySelector(query) as HTMLElement;
   root.innerHTML = '';
   root.appendChild(component.getContent());
+  component.dispatchComponentDidMount(); // new
   return root;
 }

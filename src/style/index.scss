@@ -1,4 +1,4 @@
-@import "../layouts/signin/index";
+@import "../layouts/signup/index";
 @import "../layouts/login/index";
 @import "../layouts/chat/index";
 @import "../layouts/errors/index";
@@ -86,11 +86,8 @@ ul[class] {
     border: none;
     margin-bottom: 14px;
     margin-top: 50px;
-    width: 100%;
-
-    a {
-      color: $base-white;
-    }
+    width: 280px;
+    color: $base-white;
   }
 
   &__link {
@@ -100,6 +97,7 @@ ul[class] {
     color: $button;
     font-size: 11px;
     line-height: 11px;
+    cursor: pointer;
   }
 
   &__profile {
@@ -110,12 +108,16 @@ ul[class] {
     padding: 10px 0;
     display: block;
     width: 100%;
+    cursor: pointer;
 
     &-link {
       color: $button;
     }
 
     &-exit {
+      display: block;
+      width: 100%;
+      cursor: pointer;
       text-align: left;
       background: none;
       padding: 10px 0;
@@ -128,10 +130,11 @@ ul[class] {
   }
 }
 
-.error-span {
+.error-span,
+.error-span-reason {
   font-weight: 400;
   font-size: 8px;
   line-height: 8px;
-  color: #ff2f2f;
+  color: $exit-link;
   margin-top: 7px;
 }

@@ -1,5 +1,169 @@
 @import "../../style/vars";
 
+.modal_avatar {
+  &-active {
+    opacity: 1;
+    pointer-events: auto;
+    overflow-y: auto;
+  }
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(0 0 0 / 40%);
+  z-index: 10;
+  transition: opacity 200ms ease-in;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  padding-top: 231px;
+  padding-left: 70px;
+}
+
+.modal-body {
+  width: 340px;
+
+  &_search {
+    background: $background-chat-input;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+
+    &::placeholder {
+      text-align: center;
+    }
+  }
+
+  &_result {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    &__item {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      align-items: center;
+
+      &-role {
+        color: $inactive-link;
+        font-size: 12px;
+        margin-left: auto;
+      }
+
+      img {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+
+      cursor: pointer;
+
+      &:hover {
+        background: $background-chat-message;
+        color: $button;
+      }
+    }
+  }
+}
+
+.dropdown {
+  float: right;
+  overflow: hidden;
+
+  &__content {
+    display: none;
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    border-radius: 12px;
+    z-index: 1;
+    left: 46vw;
+    padding: 10px 0;
+
+    &:hover {
+      display: block;
+    }
+
+    &-link {
+      &_delete-chat {
+        color: $exit-link;
+      }
+
+      &_info,
+      &_add,
+      &_delete,
+      &_delete-chat {
+        font-size: 12px;
+        line-height: 14px;
+        cursor: pointer;
+        list-style-type: none;
+        padding: 10px 15px;
+        display: block;
+
+        &:hover {
+          background: $background-chat-message;
+          color: $button;
+        }
+      }
+    }
+  }
+
+  &__btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+      color: $button;
+    }
+
+    &:hover + .dropdown__content {
+      display: block;
+    }
+  }
+}
+
+.contextmenu {
+  z-index: 1000;
+  position: fixed;
+  display: none;
+  width: 100px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+  border-radius: 6px;
+  background: $background;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+  }
+
+  &__item {
+    font-size: 10px;
+    padding: 5px;
+    cursor: pointer;
+    color: $inactive-link;
+
+    &:hover {
+      background: $background-chat-input;
+    }
+  }
+
+  &.active {
+    display: block;
+  }
+}
+
 .chat {
   display: flex;
   flex-direction: row;
@@ -10,8 +174,10 @@
     padding-right: 10px;
     padding-left: 10px;
     width: 310px;
-    height: 100vh;
+    min-height: 90vh;
     background: $background;
+    display: flex;
+    flex-direction: column;
 
     &-link {
       display: block;
@@ -20,6 +186,7 @@
       line-height: 12px;
       text-align: right;
       margin-bottom: 23px;
+      cursor: pointer;
 
       &:hover {
         color: $button;
@@ -38,7 +205,6 @@
 
       outline: none;
       border: none;
-      margin-bottom: 14px;
     }
   }
 
@@ -55,6 +221,7 @@
         width: 47px;
         height: 47px;
         margin-right: 10px;
+        border-radius: 50%;
       }
 
       &_title {
@@ -90,39 +257,58 @@
         right: 0;
       }
 
-      &:hover {
-        background: $background-chat-message;
+      &_unread {
+        background: $button;
+        color: $base-white;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        text-align: center;
+        position: absolute;
+        right: 0;
+        top: 5;
+        font-size: 13px;
       }
 
-      &.active {
+      &:hover {
         background: $background-chat-message;
       }
     }
   }
 
   &__window {
+    flex: 1 1 auto;
+    min-height: 100%;
     padding-left: 20px;
     padding-right: 20px;
     max-width: 1100px;
+    min-width: 650px;
+    display: flex;
+    flex-direction: column;
 
     &-text {
-      margin-top: 354px;
+      margin-top: 30vh;
       text-align: center;
       color: $inactive-link;
+      padding-left: 40px;
+      margin-bottom: 54vh;
     }
 
     &-user {
+      margin-bottom: 20px;
       display: flex;
       border-bottom: 1px solid $border;
       padding: 10px 0;
       align-items: center;
-      width: 100%;
+      max-width: 100%;
       position: sticky;
       background: $background;
 
       &_avatar {
         width: 34px;
         height: 34px;
+        cursor: pointer;
+        border-radius: 50%;
       }
 
       &_name {
@@ -134,26 +320,15 @@
         padding-right: 48vw;
       }
 
-      &_settings {
-        cursor: pointer;
-        border: none;
-        background: transparent;
-        font-size: 18px;
-
-        &:hover {
-          color: $button;
-        }
-      }
-
       &_message {
-        width: 50%;
         margin-bottom: 10px;
         background: $background-chat-input;
         border-radius: 10px;
-        max-width: 500px;
         padding: 11px;
         align-self: flex-start;
-        flex-basis: 50%;
+        flex-basis: content;
+        display: block;
+        max-width: 80%;
       }
 
       &_text {
@@ -171,13 +346,16 @@
     }
 
     &-core {
-      margin-top: 100px;
       width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      height: 86vh;
+      overflow-y: scroll;
     }
 
     &-date {
+      margin-top: 10px;
       text-align: center;
       margin-bottom: 38px;
       color: $inactive-link;
@@ -188,14 +366,15 @@
 
     &-your {
       &_message {
+        max-width: 80%;
         margin-bottom: 10px;
-        margin-top: 10px;
         align-self: flex-end;
+        flex-basis: content;
         background: $background-chat-message;
         padding: 11px;
         border-radius: 10px;
-        flex-basis: 50%;
-        width: 50%;
+        display: block;
+        margin-right: 10px;
       }
 
       &_date {
@@ -215,12 +394,18 @@
     &-message {
       border-top: 1px solid $border;
       display: flex;
-      position: fixed;
-      bottom: 0;
+      flex: 0 0 auto;
       padding: 11px 0;
-      width: 100%;
+      max-width: 100%;
       background: $background;
       align-items: center;
+
+      &_wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        cursor: pointer;
+      }
 
       &_add {
         margin-right: 10px;
@@ -232,11 +417,18 @@
           color: $button;
         }
 
+        &-input {
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+        }
+
         font-size: 20px;
       }
 
       &_input {
-        width: 46vw;
+        min-width: 48vw;
         padding: 10px 20px;
         background: $background-chat-input;
         border-radius: 30px;
@@ -247,10 +439,14 @@
       &_send {
         cursor: pointer;
         border: none;
-        background: $button;
         border-radius: 50%;
         font-size: 16px;
         color: $base-white;
+        background: $background-chat-input;
+
+        &:hover {
+          background: $button;
+        }
       }
     }
   }

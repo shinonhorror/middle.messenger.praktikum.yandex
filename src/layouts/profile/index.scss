@@ -1,5 +1,76 @@
 @import "../../style/vars";
 
+.modal {
+  &-active {
+    opacity: 1;
+    pointer-events: auto;
+    overflow-y: auto;
+  }
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(0 0 0 / 40%);
+  z-index: 10;
+  transition: opacity 200ms ease-in;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  padding-top: 231px;
+  padding-left: 70px;
+
+  &-dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &-body {
+    padding: 40px 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    border-radius: 12px;
+    outline: 0;
+
+    &_title {
+      text-align: center;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 20px;
+      margin-bottom: 43px;
+    }
+
+    &_input {
+      border: none;
+      cursor: pointer;
+      color: #3369f3;
+      text-align: center;
+      font-size: 12px;
+      line-height: 16px;
+      text-decoration-line: underline;
+      margin-bottom: 45px;
+    }
+
+    &_button {
+      color: #fff;
+      background: $button;
+      border-radius: 8px;
+      height: 37px;
+      cursor: pointer;
+      border: none;
+      width: 280px;
+    }
+  }
+}
+
 .profile {
   display: flex;
 
@@ -11,6 +82,7 @@
     padding-top: 50vh;
 
     &-link {
+      cursor: pointer;
       color: $inactive-link;
 
       &:hover {
@@ -24,9 +96,53 @@
     flex-direction: column;
     margin: 0 auto;
 
+    img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+    }
+
     &-avatar {
+      width: 130px;
+      height: 130px;
       margin-top: 60px;
       align-self: center;
+      cursor: pointer;
+      border-radius: 50%;
+
+      &_mask {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: -135px;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: rgb(0 0 0 / 50%);
+        opacity: 0;
+        color: #fff;
+        transition: opacity 0.2s linear;
+
+        p {
+          width: 62px;
+          position: relative;
+          text-align: center;
+          display: none;
+          font-weight: 500;
+          font-size: 13px;
+          line-height: 14px;
+        }
+
+        &:hover {
+          p {
+            display: block;
+          }
+
+          opacity: 1;
+        }
+      }
     }
 
     &-name {
@@ -70,5 +186,9 @@
 
   .error {
     color: red;
+  }
+
+  .button__base {
+    width: 100%;
   }
 }

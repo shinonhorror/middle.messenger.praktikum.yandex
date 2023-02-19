@@ -1,9 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import * as Handlebars from 'handlebars';
 import EventBus from './EventBus';
+import isArray from '~src/utils/isArray';
 
 type Props<T = { [x: string]: unknown }> = {
-  events?: { [x: string]: (e: InputEvent | SubmitEvent) => void };
+  events?: { [x: string]: (e: InputEvent | SubmitEvent | MouseEvent | Event | void) => void };
 } & T;
 
 export default class Component<T = { [x: string]: unknown }> {
@@ -16,7 +17,7 @@ export default class Component<T = { [x: string]: unknown }> {
 
   _props: Props<T>;
 
-  _children: Record<string, Component>;
+  _children: Record<string, Component | any>;
 
   _id: string;
 
@@ -49,7 +50,7 @@ export default class Component<T = { [x: string]: unknown }> {
   }
 
   private _registerEvents() {
-    this._eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
+    this._eventBus.on(Component.EVENTS.INIT, this._init.bind(this));
     this._eventBus.on(
       Component.EVENTS.FLOW_CDM,
       this._componentDidMount.bind(this),
@@ -72,10 +73,13 @@ export default class Component<T = { [x: string]: unknown }> {
     this._element = this.createDocumentElement(tagName);
   }
 
-  init(): void {
+  _init(): void {
     this._createResources();
+    // this.init();
     this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
   }
+
+  init(): void {}
 
   dispatchComponentDidMount(): void {
     this._eventBus.emit(Component.EVENTS.FLOW_CDM);
@@ -86,22 +90,23 @@ export default class Component<T = { [x: string]: unknown }> {
 
   private _componentDidMount(): void {
     this.componentDidMount();
-    Object.keys(this._children).forEach((child: any) => {
-      child.dispatchComponentDidMount();
+    (<any>Object).values(this._children).forEach((child: any) => {
+      if (isArray(child)) {
+        child.forEach((item: Component) => item.dispatchComponentDidMount());
+      } else {
+        child.dispatchComponentDidMount();
+      }
     });
   }
 
   componentDidMount(): void {}
 
-  componentDidUpdate(oldProps: Props<T>, newProps: Props<T>): boolean {
-    if (oldProps === newProps) {
-      return false;
-    }
+  componentDidUpdate(): boolean {
     return true;
   }
 
-  private _componentDidUpdate(oldProps: Props<T>, newProps: Props<T>): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
+  private _componentDidUpdate(): void {
+    const response = this.componentDidUpdate();
     if (response) {
       this._eventBus.emit(Component.EVENTS.FLOW_RENDER);
     }
@@ -111,6 +116,7 @@ export default class Component<T = { [x: string]: unknown }> {
     if (!newProps) {
       return;
     }
+
     const oldValue = { ...this._props };
     const { children, props } = this.getChildren(newProps);
     if (Object.keys(children).length) {
@@ -119,10 +125,7 @@ export default class Component<T = { [x: string]: unknown }> {
     if (Object.keys(props).length) {
       Object.assign(this._props, props);
     }
-    if (this._setUpdate) {
-      this._eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, this._props);
-      this._setUpdate = false;
-    }
+    this._eventBus.emit(Component.EVENTS.FLOW_CDU, oldValue, this._props);
   };
 
   private _makePropsProxy(props: Props<T>) {
@@ -134,7 +137,6 @@ export default class Component<T = { [x: string]: unknown }> {
       set: (target, prop, val) => {
         if (target[prop as keyof Props<T>] !== val) {
           target[prop as keyof Props<T>] = val;
-          this._setUpdate = true;
         }
         return true;
       },
@@ -195,9 +197,15 @@ export default class Component<T = { [x: string]: unknown }> {
   compile(template: string, props: any = this._props): DocumentFragment {
     const propsAnsStubs = { ...props };
     (<any>Object)
-      .entries(this._children as Record<string, Component>)
+      .entries(this._children as Record<string, Component | any>)
       .forEach(([key, child]: any) => {
-        propsAnsStubs[key] = `<div data-id="${child._id}"></div>`;
+        if (isArray(child)) {
+          propsAnsStubs[key] = child
+            .map((item: Component) => `<div data-id="${item._id}"></div>`)
+            .join('');
+        } else if (child instanceof Component) {
+          propsAnsStubs[key] = `<div data-id="${child._id}"></div>`;
+        }
       });
     const fragment = this.createDocumentElement(
       'template',
@@ -206,9 +214,22 @@ export default class Component<T = { [x: string]: unknown }> {
     (<any>Object)
       .values(this._children)
       .forEach((child: InstanceType<typeof Component>) => {
-        const stub = fragment.content.querySelector(`[data-id='${child._id}']`);
-        if (stub) {
-          stub.replaceWith(child.getContent());
+        if (isArray(child)) {
+          child.forEach((item: Component) => {
+            const stub = fragment.content.querySelector(
+              `[data-id='${item._id}']`,
+            );
+            if (stub) {
+              stub.replaceWith(item.getContent());
+            }
+          });
+        } else {
+          const stub = fragment.content.querySelector(
+            `[data-id='${child._id}']`,
+          );
+          if (stub) {
+            stub.replaceWith(child.getContent());
+          }
         }
       });
     return fragment.content;
@@ -216,13 +237,18 @@ export default class Component<T = { [x: string]: unknown }> {
 
   getChildren(propsAndChilds: Props<T>): {
     props: Props<T>;
-    children: Record<string, Component>;
+    children: Record<string, Component | any>;
   } {
-    const children: Record<string, Component> = {};
-    const props:Record<string, unknown> = {};
+    const children: Record<string, Component | any> = {};
+    const props: Record<string, unknown> = {};
 
     (<any>Object).entries(propsAndChilds).forEach(([key, value]: any) => {
-      if (value instanceof Component) {
+      if (
+        isArray(value)
+        && value.every((item: any) => item instanceof Component)
+      ) {
+        children[key] = value;
+      } else if (value instanceof Component) {
         children[key] = value;
       } else {
         props[key] = value;

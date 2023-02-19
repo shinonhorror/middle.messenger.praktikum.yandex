@@ -6,7 +6,7 @@ const inputDataPassword: { [key: string]: Array<{ [value: string]: string }> } =
       inputClass: 'profile__desc__item-value',
       title: 'Старый пароль',
       type: 'password',
-      inputName: 'password',
+      inputName: 'oldPassword',
     },
     {
       itemClass: 'profile__desc__item',
@@ -14,7 +14,7 @@ const inputDataPassword: { [key: string]: Array<{ [value: string]: string }> } =
       inputClass: 'profile__desc__item-value',
       title: 'Новый пароль',
       type: 'password',
-      inputName: 'oldPassword',
+      inputName: 'newPassword',
     },
     {
       itemClass: 'profile__desc__item',

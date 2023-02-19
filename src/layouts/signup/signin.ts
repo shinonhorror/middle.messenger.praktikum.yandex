@@ -2,8 +2,9 @@ const tpl = `<div class="container">
 <form class="signin">
 <h2 class="signin__title">{{title}}</h2>
 {{{input}}}
+<span class='error-span-reason'></span>
 {{{button}}}
-<a class="button__link" href={{login}}>Войти</a>
+{{{link}}}
 </form>
 </div>`;
 

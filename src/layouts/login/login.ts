@@ -1,9 +1,10 @@
 const tpl = `<div class="container">
 <form class="login">
-<h2 class="login__title">{{title}}</h2>
+<h2 class="login__title">Вход</h2>
 {{{input}}}
+<span class='error-span-reason'></span>
 {{{button}}}
-<a class="button__link" href={{auth}}>Нет аккаунта?</a>
+{{{link}}}
 </form>
 </div>`;
 

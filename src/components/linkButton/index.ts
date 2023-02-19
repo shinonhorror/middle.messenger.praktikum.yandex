@@ -3,10 +3,18 @@ import tpl from './link';
 import Component from '../../services/Component';
 
 type LinkButtonType = {
-  data: Array<{ [key: string]: string }>;
+  buttonClass?: string;
+  linkClass: string;
+  title: string;
+  link?: string;
+  events?: { click: (e: Event) => void };
 };
 export default class LinkButton extends Component<LinkButtonType> {
+  constructor(props:LinkButtonType) {
+    super('div', props);
+  }
+
   render(): DocumentFragment {
-    return this.compile(tpl);
+    return this.compile(tpl, { ...this._props });
   }
 }
