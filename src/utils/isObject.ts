@@ -1,4 +1,4 @@
-export default function isObject(value: unknown): value is PlainObject {
+export default function isObject(value: unknown): value is any {
   return (
     typeof value === 'object'
     && value !== null

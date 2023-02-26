@@ -42,8 +42,7 @@ export interface DataMessage {
 }
 
 export type MessageItemType = {
-  mess?: Array<Message>;
-  active?: Array<ChatType>;
+  mess: Array<Message>;
 };
 
 export interface DeleteChat {

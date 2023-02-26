@@ -1,10 +1,10 @@
 import tpl from './chatItem';
-import Component from '../../services/Component';
-import { store } from '~src/services/Store';
-import ChatControl from '~src/controllers/ChatControl';
-import WebSocketControl from '~src/controllers/WebSocketControl';
-import { ChatItemType, ChatType } from '~src/types/ChatTypes';
-import connect from '~src/services/Connector';
+import Component from '@/services/Component';
+import { store } from '@/services/Store';
+import ChatControl from '@/controllers/ChatControl';
+import WebSocketControl from '@/controllers/WebSocketControl';
+import { ChatItemType, ChatType } from '@/types/ChatTypes';
+import connect from '@/services/Connector';
 
 export default class ChatItem extends Component<ChatItemType> {
   constructor(props?: ChatItemType) {

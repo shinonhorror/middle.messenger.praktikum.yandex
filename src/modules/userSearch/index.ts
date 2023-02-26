@@ -1,9 +1,9 @@
 import tpl from './userSearch';
-import Component from '../../services/Component';
-import avatar from '~src/img/avatar.png';
-import ChatControl from '~src/controllers/ChatControl';
-import connect from '~src/services/Connector';
-import { ChatType } from '~src/types/ChatTypes';
+import Component from '@/services/Component';
+import avatar from '@/img/avatar.png';
+import ChatControl from '@/controllers/ChatControl';
+import connect from '@/services/Connector';
+import { ChatType } from '@/types/ChatTypes';
 
 type UserSearchBaseType = {
   users?: Array<Record<string, string>>;

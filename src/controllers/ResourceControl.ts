@@ -1,4 +1,4 @@
-import ResourceAPI from '~src/api/ResourceAPI';
+import ResourceAPI, { ResourceType } from '@/api/ResourceAPI';
 
 const resourceApi = new ResourceAPI();
 
@@ -8,8 +8,8 @@ class ResourceControl {
     return url;
   }
 
-  public async getCreatedResource(data: FormData) {
-    const resource = await this.createResource(data);
+  public getCreatedResource(data: FormData): Promise<ResourceType> {
+    const resource = resourceApi.create(data);
     return resource;
   }
 

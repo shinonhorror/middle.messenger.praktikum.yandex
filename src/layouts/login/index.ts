@@ -1,13 +1,13 @@
 import tpl from './login';
-import Component from '../../services/Component';
+import Component from '@/services/Component';
 import {
   Blur, Focus, Input, Submit,
-} from '~src/data/events';
-import BaseButton from '~src/components/baseButton';
-import inputDataLogin from '~src/data/login';
-import InputBase from '~src/components/input';
-import router from '~src/js';
-import LinkButton from '~src/components/linkButton';
+} from '@/data/events';
+import BaseButton from '@/components/baseButton';
+import inputDataLogin from '@/data/login';
+import InputBase from '@/components/input';
+import router from '@/index';
+import LinkButton from '@/components/linkButton';
 
 type LoginType = {
   title: string;
@@ -54,9 +54,7 @@ export default class Login extends Component<LoginType> {
     if (!this._props.events) {
       return;
     }
-    const {
-      focus, blur, input,
-    } = this._props.events as {
+    const { focus, blur, input } = this._props.events as {
       [key: string]: () => void;
     };
     this._element.querySelectorAll('input').forEach((a) => {
@@ -71,9 +69,7 @@ export default class Login extends Component<LoginType> {
     if (!this._props.events) {
       return;
     }
-    const {
-      focus, blur, input,
-    } = this._props.events as {
+    const { focus, blur, input } = this._props.events as {
       [key: string]: () => void;
     };
     this._element.querySelectorAll('input').forEach((a) => {

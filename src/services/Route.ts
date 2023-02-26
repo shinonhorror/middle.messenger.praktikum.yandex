@@ -1,6 +1,6 @@
-import render from '~src/utils/pagesRender';
+import render from '@/utils/pagesRender';
 import Component from './Component';
-import { isEqual } from '~src/utils/isEqual';
+import { isEqual } from '@/utils/isEqual';
 
 export default class Route {
   _pathname: string;

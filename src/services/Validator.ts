@@ -1,5 +1,5 @@
-import regularExpression from '~src/data/regularExpression';
-import validFunction from '~src/data/validationFunction';
+import regularExpression from '@/data/regularExpression';
+import validFunction from '@/data/validationFunction';
 
 export default function validator(element: HTMLInputElement):boolean {
   const expression = regularExpression[element.name];

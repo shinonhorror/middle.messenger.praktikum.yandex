@@ -8,13 +8,13 @@
     "noUnusedParameters": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "~*": ["./*"]
+      "@/*": ["*"]
     }
   },
   "include": ["src/**/*", "./declaration.d.ts",".eslintrc.js", "src/**/*.js"],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

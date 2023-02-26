@@ -1,6 +1,9 @@
 import {
-  ChatType, CreateChat, DeleteChat, UserToChat,
-} from '~src/types/ChatTypes';
+  ChatType,
+  CreateChat,
+  DeleteChat,
+  UserToChat,
+} from '@/types/ChatTypes';
 import HTTPTransport from './HTTPTransport';
 
 const chatAPIInstance = new HTTPTransport('/chats');

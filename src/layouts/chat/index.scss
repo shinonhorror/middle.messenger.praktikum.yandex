@@ -1,6 +1,7 @@
 @import "../../style/vars";
 
-.modal_avatar {
+.modal_avatar,
+.modal_files {
   &-active {
     opacity: 1;
     pointer-events: auto;
@@ -86,7 +87,7 @@
     background: #fff;
     box-shadow: 0 0 6px rgb(0 0 0 / 14%);
     border-radius: 12px;
-    z-index: 1;
+    z-index: 10;
     left: 46vw;
     padding: 10px 0;
 
@@ -321,6 +322,7 @@
       }
 
       &_message {
+        z-index: -1;
         margin-bottom: 10px;
         background: $background-chat-input;
         border-radius: 10px;
@@ -329,6 +331,17 @@
         flex-basis: content;
         display: block;
         max-width: 80%;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          right: 55px;
+          border-width: 4px;
+          border-style: solid;
+          border-color: transparent  transparent $background-chat-input transparent;
+        }
       }
 
       &_text {
@@ -352,6 +365,11 @@
       align-items: center;
       height: 86vh;
       overflow-y: scroll;
+
+      @supports (scrollbar-gutter: stable) {
+        overflow: auto;
+        scrollbar-gutter: stable;
+      }
     }
 
     &-date {
@@ -366,6 +384,15 @@
 
     &-your {
       &_message {
+        &-link {
+          cursor: pointer;
+        }
+
+        &-image {
+          max-width: 300px;
+        }
+
+        z-index: -1;
         max-width: 80%;
         margin-bottom: 10px;
         align-self: flex-end;
@@ -375,6 +402,19 @@
         border-radius: 10px;
         display: block;
         margin-right: 10px;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          right: -3px;
+          border-width: 5px;
+          border-style: solid;
+          border-color:
+            transparent transparent $background-chat-message
+            $background-chat-message;
+        }
       }
 
       &_date {

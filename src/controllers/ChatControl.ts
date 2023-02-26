@@ -1,10 +1,14 @@
-import ChatAPI from '~src/api/ChatAPI';
-import { store } from '~src/services/Store';
-import formatData from '~src/utils/data';
+import ChatAPI from '@/api/ChatAPI';
+import { store } from '@/services/Store';
+import formatData from '@/utils/data';
 import {
-  ChatType, CreateChat, DeleteChat, UserToChat,
-} from '~src/types/ChatTypes';
-import defaultAvatar from '~src/img/avatar.png';
+  ChatType,
+  CreateChat,
+  DeleteChat,
+  UserToChat,
+} from '@/types/ChatTypes';
+import defaultAvatar from '@/img/avatar.png';
+import WebSocketControl from './WebSocketControl';
 
 const chatApi = new ChatAPI();
 
@@ -39,9 +43,12 @@ class ChatControl {
     try {
       await chatApi.delete(id);
       await this.getChats();
-      store.set('mess', undefined);
       const activeChat = store.getState().chat[0] as any;
       store.set('active', activeChat || undefined);
+      store.set('mess', undefined);
+      if (activeChat) {
+        WebSocketControl.init(store.getState().user.id, activeChat.id);
+      }
     } catch (e: any) {
       console.error(e);
       alert('У вас нет доступа к удалению чата');

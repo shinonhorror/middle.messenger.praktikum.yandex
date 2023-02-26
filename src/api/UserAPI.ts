@@ -1,4 +1,8 @@
-import { UserUpdatePassType, UserUpdateType, UserType } from '~src/types/UserTypes';
+import {
+  UserUpdatePassType,
+  UserUpdateType,
+  UserType,
+} from '@/types/UserTypes';
 import HTTPTransport from './HTTPTransport';
 
 const userAPIInstance = new HTTPTransport('/user');

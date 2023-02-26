@@ -1,7 +1,7 @@
-import UserAPI from '~src/api/UserAPI';
-import router from '~src/js';
-import { store } from '~src/services/Store';
-import { UserUpdatePassType, UserUpdateType } from '~src/types/UserTypes';
+import UserAPI from '@/api/UserAPI';
+import router from '@/index';
+import { store } from '@/services/Store';
+import { UserUpdatePassType, UserUpdateType } from '@/types/UserTypes';
 import ResourceControl from './ResourceControl';
 
 const userApi = new UserAPI();

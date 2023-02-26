@@ -1,6 +1,6 @@
 import tpl from './link';
 
-import Component from '../../services/Component';
+import Component from '@/services/Component';
 
 type LinkButtonType = {
   buttonClass?: string;

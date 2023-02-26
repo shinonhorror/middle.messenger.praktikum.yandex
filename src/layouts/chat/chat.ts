@@ -1,13 +1,6 @@
 const tpl = `
-<div id="openModal" class="modal_avatar">
-  <div class="modal-dialog">
-      <form class="modal-body" action="submit">    
-        <h2 class="modal-body_title">Загрузите файл</h2>
-        <input class="modal-body_input" type="file" name="avatar" accept=".png, .jpg, .jpeg">
-        <button class="modal-body_button" type="submit">Загрузить</button>
-      </form>
-  </div>
-</div>
+{{{modalAvatar}}}
+{{{modalFiles}}}
 <div class="chat">
   <div class="chat__line">
     {{{link}}}
