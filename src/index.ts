@@ -2,10 +2,10 @@ import '@/style/index.scss';
 import Login from '@/layouts/login';
 import { ErrorClass } from '@/layouts/errors';
 import Signin from '@/layouts/signup';
-import Router from '@/services/Router';
 import { ProfileClass } from '@/layouts/profile';
 import { ChatClass } from '@/layouts/chat';
 import AuthControl from '@/controllers/AuthControl';
+import router from '@/services/Router';
 
 enum Routes {
   Log = '/',
@@ -18,7 +18,6 @@ enum Routes {
   Err = '/500',
 }
 
-const router = new Router();
 window.addEventListener('DOMContentLoaded', async () => {
   router
     .use(Routes.Log, Login)

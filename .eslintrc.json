@@ -27,6 +27,7 @@
 		"func-names":"off",
 		"no-restricted-globals": "off", //потом включить
 		"no-alert": "off",
-		"no-nested-ternary": "off"
+		"no-nested-ternary": "off",
+		"import/no-cycle": "off"
   }
 }

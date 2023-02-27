@@ -1,6 +1,6 @@
 import ChatAPI from '@/api/ChatAPI';
 import { store } from '@/services/Store';
-import formatData from '@/utils/data';
+
 import {
   ChatType,
   CreateChat,
@@ -9,6 +9,7 @@ import {
 } from '@/types/ChatTypes';
 import defaultAvatar from '@/img/avatar.png';
 import WebSocketControl from './WebSocketControl';
+import { formatData, formatMonth } from '@/utils/dateFormatter';
 
 const chatApi = new ChatAPI();
 
@@ -18,7 +19,13 @@ class ChatControl {
       const chat = await chatApi.request('');
       chat.forEach((item: ChatType) => {
         if (item.last_message) {
-          item.last_message.time = formatData(item.last_message.time);
+          const dateNow = new Date(Date.now()).toString();
+          const day = formatMonth(dateNow);
+          const messageDay = formatMonth(item.last_message.time);
+          const messageTime = formatData(
+            item.last_message.time,
+          );
+          item.last_message.time = `${day !== messageDay ? messageDay : ''} ${messageTime}`;
         }
         if (!item.avatar) {
           item.defaultAvatar = defaultAvatar;

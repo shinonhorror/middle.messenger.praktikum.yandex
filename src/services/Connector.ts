@@ -1,4 +1,4 @@
-import { Indexed } from '@/utils/isEqual';
+import { Indexed } from '@/utils/helpers';
 import Component from './Component';
 import { StoreEvents, store } from './Store';
 

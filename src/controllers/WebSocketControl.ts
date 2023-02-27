@@ -1,8 +1,9 @@
 import { store } from '@/services/Store';
 import ChatControl from './ChatControl';
-import isArray from '@/utils/isArray';
-import formatData from '@/utils/data';
 import { DataMessage } from '@/types/ChatTypes';
+
+import { isArray } from '@/utils/helpers';
+import { formatData, formatMonth } from '@/utils/dateFormatter';
 
 class WebSocketControl {
   socket?: WebSocket;
@@ -74,16 +75,18 @@ class WebSocketControl {
       try {
         const { mess } = store.getState();
         const data = JSON.parse(event.data);
+        let loaded = 0;
+        let maxId = 0;
         if (data.type === 'pong' || data.type === 'user connected') {
           return;
         }
+        let temp = '';
         const newMessages: Array<unknown> = [];
-        let loaded = 0;
-        let maxId = 0;
         if (isArray(data)) {
-          data.forEach((item: DataMessage) => {
+          data.reverse().forEach((item: DataMessage) => {
+            const day = formatMonth(item.time);
             if (item.user_id === userId) {
-              newMessages.unshift({
+              newMessages.push({
                 classItem: 'chat__window-your_message',
                 classText: 'chat__window-your_text',
                 classDate: 'chat__window-your_date',
@@ -91,9 +94,10 @@ class WebSocketControl {
                 date: formatData(item.time),
                 isRead: item.is_read,
                 path: item.file ? item.file.path : null,
+                time: day !== temp ? day : null,
               });
             } else {
-              newMessages.unshift({
+              newMessages.push({
                 classItem: 'chat__window-user_message',
                 classText: 'chat__window-user_text',
                 classDate: 'chat__window-user_date',
@@ -101,12 +105,14 @@ class WebSocketControl {
                 date: formatData(item.time),
                 isRead: item.is_read,
                 path: item.file ? item.file.path : null,
+                time: day !== temp ? day : null,
               });
             }
             if (maxId < item.id) {
               maxId = item.id;
             }
             loaded += 1;
+            temp = day;
           });
           store.set('mess', [...newMessages, ...(mess || [])]);
           if (loaded === 20) {

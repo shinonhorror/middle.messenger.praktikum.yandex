@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import * as Handlebars from 'handlebars';
 import EventBus from './EventBus';
-import isArray from '@/utils/isArray';
+import { isArray } from '../utils/helpers';
 
 type Props<T = { [x: string]: unknown }> = {
   events?: { [x: string]: (e: InputEvent | SubmitEvent | MouseEvent | Event | void) => void };

@@ -1,6 +1,7 @@
 const tpl = `
 {{#if mess}}
 {{#each mess}}
+  <p class="chat__window-date">{{time}}</p>
   <div class={{classItem}}>
   {{#if path}}
   <img class="chat__window-your_message-image" src="https://ya-praktikum.tech/api/v2/resources{{path}}">

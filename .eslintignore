@@ -5,3 +5,4 @@
 /webpack.base.conf.js
 /webpack.dev.conf.js
 /webpack.build.conf.js
+/mochaSetup.js

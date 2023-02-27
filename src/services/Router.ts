@@ -4,7 +4,7 @@ import Route from './Route';
 interface ComponentsType<T = { [x: string]: unknown }> {
   new (props: T): Component<T>;
 }
-export default class Router {
+class Router {
   private static __instance: Router;
 
   routes: Array<Route>;
@@ -56,6 +56,11 @@ export default class Router {
     route.navigate(pathname);
   }
 
+  reset() {
+    this.routes = [];
+    this._currentRoute = null;
+  }
+
   back() {
     this.history.back();
   }
@@ -73,3 +78,6 @@ export default class Router {
     return this.routes.find((route) => route.match(pathname));
   }
 }
+const router = new Router();
+
+export default router;
