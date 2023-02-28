@@ -26,6 +26,9 @@ class ChatControl {
             item.last_message.time,
           );
           item.last_message.time = `${day !== messageDay ? messageDay : ''} ${messageTime}`;
+          if (item.last_message.user.display_name === store.getState().user.display_name) {
+            item.last_message.user.display_name = 'Вы';
+          }
         }
         if (!item.avatar) {
           item.defaultAvatar = defaultAvatar;

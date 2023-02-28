@@ -1,4 +1,4 @@
-import { queryStringify } from '@/utils/helpers';
+import { queryStringify } from '../utils/helpers';
 
 enum METHODS {
   GET = 'GET',
@@ -7,6 +7,7 @@ enum METHODS {
   DELETE = 'DELETE',
 }
 const API_YANDEX = 'https://ya-praktikum.tech/api/v2';
+const API_TEST = 'http://jsonplaceholder.typicode.com';
 interface Options {
   method: string;
   timeout?: number;
@@ -23,8 +24,11 @@ type HTTP = (
 export default class HTTPTransport {
   url: string;
 
-  constructor(url: string) {
+  urlTest: boolean;
+
+  constructor(url: string, urlTest: boolean = false) {
     this.url = url;
+    this.urlTest = urlTest;
   }
 
   get: HTTP = (url, options) => this.request(url, { ...options, method: METHODS.GET }, options?.timeout);
@@ -41,13 +45,17 @@ export default class HTTPTransport {
     options?.timeout,
   );
 
-  post: HTTP = (url, options) => this.request(url, {
-    ...options,
-    method: METHODS.POST,
-    headers: {
-      ...options?.headers,
+  post: HTTP = (url, options) => this.request(
+    url,
+    {
+      ...options,
+      method: METHODS.POST,
+      headers: {
+        ...options?.headers,
+      },
     },
-  }, options?.timeout);
+    options?.timeout,
+  );
 
   delete: HTTP = (url, options) => this.request(url, { ...options, method: METHODS.DELETE }, options?.timeout);
 
@@ -69,8 +77,10 @@ export default class HTTPTransport {
       xhr.open(
         method,
         isGet && !!data
-          ? `${API_YANDEX}${this.url + url}${queryStringify(data)}`
-          : API_YANDEX + this.url + url,
+          ? `${this.urlTest ? API_TEST : API_YANDEX}${
+            this.url + url
+          }${queryStringify(data)}`
+          : `${this.urlTest ? API_TEST : API_YANDEX}${this.url + url}`,
       );
 
       if (!(data instanceof FormData)) {

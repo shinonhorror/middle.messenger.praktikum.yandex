@@ -1,0 +1,76 @@
+.modal_avatar,
+.modal_files {
+  &-active {
+    opacity: 1;
+    pointer-events: auto;
+    overflow-y: auto;
+  }
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(0 0 0 / 40%);
+  z-index: 10;
+  transition: opacity 200ms ease-in;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  padding-top: 231px;
+  padding-left: 70px;
+}
+
+.modal-body {
+  width: 340px;
+
+  &_search {
+    background: $background-chat-input;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+
+    &::placeholder {
+      text-align: center;
+    }
+  }
+
+  &_result {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    &__item {
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      align-items: center;
+
+      &-role {
+        color: $inactive-link;
+        font-size: 12px;
+        margin-left: auto;
+      }
+
+      img {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+
+      cursor: pointer;
+
+      &:hover {
+        background: $background-chat-message;
+        color: $button;
+      }
+    }
+  }
+}

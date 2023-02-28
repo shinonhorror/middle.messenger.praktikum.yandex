@@ -30,7 +30,6 @@ class Router {
 
   use(pathname: string, block: ComponentsType) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-
     this.routes.push(route);
     return this;
   }
@@ -53,7 +52,7 @@ class Router {
       this._currentRoute.leave();
     }
     this._currentRoute = route;
-    route.navigate(pathname);
+    route.render();
   }
 
   reset() {

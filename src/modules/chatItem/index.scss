@@ -1,0 +1,30 @@
+.contextmenu {
+  z-index: 1000;
+  position: fixed;
+  display: none;
+  width: 100px;
+  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+  border-radius: 6px;
+  background: $background;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+  }
+
+  &__item {
+    font-size: 10px;
+    padding: 5px;
+    cursor: pointer;
+    color: $inactive-link;
+
+    &:hover {
+      background: $background-chat-input;
+    }
+  }
+
+  &.active {
+    display: block;
+  }
+}

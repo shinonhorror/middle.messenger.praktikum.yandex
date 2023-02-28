@@ -20,22 +20,22 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.(ts|tsx)$/i,
         loader: "ts-loader",
-        exclude: /node_modules/,
+        exclude: ['/node_modules/'],
         options: {
           configFile: path.resolve(__dirname, "tsconfig.json"),
         },
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg)$/i,
         loader: "file-loader",
         options: {
           name: "[name].[ext]",
         },
       },
       {
-        test: /\.scss$/,
+        test: /\.scss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -59,7 +59,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./static/index.html",
+      template: "index.html",
     }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),

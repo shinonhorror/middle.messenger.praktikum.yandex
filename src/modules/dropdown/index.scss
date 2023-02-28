@@ -1,0 +1,56 @@
+.dropdown {
+  float: right;
+  overflow: hidden;
+
+  &__content {
+    display: none;
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
+    border-radius: 12px;
+    z-index: 10;
+    left: 46vw;
+    padding: 10px 0;
+
+    &:hover {
+      display: block;
+    }
+
+    &-link {
+      &_delete-chat {
+        color: $exit-link;
+      }
+
+      &_info,
+      &_add,
+      &_delete,
+      &_delete-chat {
+        font-size: 12px;
+        line-height: 14px;
+        cursor: pointer;
+        list-style-type: none;
+        padding: 10px 15px;
+        display: block;
+
+        &:hover {
+          background: $background-chat-message;
+          color: $button;
+        }
+      }
+    }
+  }
+
+  &__btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+      color: $button;
+    }
+
+    &:hover + .dropdown__content {
+      display: block;
+    }
+  }
+}

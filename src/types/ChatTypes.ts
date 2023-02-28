@@ -4,6 +4,7 @@ export interface LastMessageType {
   content: string;
   id: number;
   time: string;
+  user: UserType;
 }
 export interface ChatType {
   avatar?: string;

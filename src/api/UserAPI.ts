@@ -29,7 +29,7 @@ export default class UserAPI {
       .then((data) => data.response);
   }
 
-  search(body: { [key: string]: FormDataEntryValue }): Promise<XMLHttpRequest> {
+  search(body: { [key: string]: FormDataEntryValue }): Promise<Array<UserType>> {
     return userAPIInstance
       .post('/search', {
         method: 'POST',
