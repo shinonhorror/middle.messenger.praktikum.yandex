@@ -4,7 +4,7 @@
 - Опубликованное приложение в [Netify](https://mchat-app-yandex.netlify.app/)
 - Опубликованное приложение в [Render](https://mchat-53yz.onrender.com/)
 
-## Ссылка на PR https://github.com/shinonhorror/middle.messenger.praktikum.yandex/pull/4
+## Ссылка на PR https://github.com/shinonhorror/middle.messenger.praktikum.yandex/pull/5
 
 ## Описание приложения
 
