@@ -1,7 +1,8 @@
 # Чат
 
-- Макет в Figma [https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0](https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0)
-- Опубликованное приложение в Netify: https://mchat-app-yandex.netlify.app/
+- Макет в [Figma](https://www.figma.com/file/JMrYsNDU9WFpyNyoSeBL2u/Chat_UI?node-id=1%3A498&t=AiHaW2LRE6iwSB9m-0)
+- Опубликованное приложение в [Netify](https://mchat-app-yandex.netlify.app/)
+- Опубликованное приложение в [Render](https://mchat-53yz.onrender.com/)
 
 ## Ссылка на PR https://github.com/shinonhorror/middle.messenger.praktikum.yandex/pull/4
 
@@ -34,6 +35,7 @@
 - Добавлен сбор данных из формы в консоль
 - Добавлена валидация на все формы по событиям focus/blur/input
 - Добавлен класс для работы с запросами
+
 ## Третий спринт
 
 [Ветка sprint_3](https://github.com/shinonhorror/middle.messenger.praktikum.yandex/tree/sprint_3)
@@ -52,22 +54,25 @@
 - Подключен WebSocket для работы с real-time сообщениями
 - Проект защищен от XSS и DOS
 
+## Четвертый спринт
+
 [Ветка sprint_4](https://github.com/shinonhorror/middle.messenger.praktikum.yandex/tree/sprint_4)
 
 - Сборка настроена с помощью [Webpack](https://webpack.js.org/). Настроены лоадеры:
- - для работы с TypeScript
- - для работы с SCSS
- - для работы с Handlebars
+  - для работы с TypeScript
+  - для работы с SCSS
+  - для работы с Handlebars
 - Настроена Docker-сборка статического приложения
-- Проект размещен на ... c Docker-сборкой
+- Проект размещен на [Render](https://render.com/) c Docker-сборкой
 - Настроен pre-commit на проект с помощью:
- - [husky](https://typicode.github.io/husky/#/)
- - [lint-staged](https://www.npmjs.com/package/lint-staged)
+  - [husky](https://typicode.github.io/husky/#/)
+  - [lint-staged](https://www.npmjs.com/package/lint-staged)
 - Проведен аудит пакетов
 - Написаны тесты с использованием [Mocha](https://mochajs.org/) и [Chai](https://www.chaijs.com/) для:
- - Роутера
- - Компонента
- - Модуля отправки запросов
+  - Роутера
+  - Компонента
+  - Модуля отправки запросов
+
 ## Сборка и запуск проекта
 
 Сборка проекта. Используемый сборщик - [Webpack](https://webpack.js.org/)
