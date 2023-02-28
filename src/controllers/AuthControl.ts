@@ -1,8 +1,8 @@
-import AuthAPI from '~src/api/AuthAPI';
-import router from '~src/js';
-import { store } from '~src/services/Store';
+import AuthAPI from '@/api/AuthAPI';
+import router from '@/index';
+import { store } from '@/services/Store';
 import ResourceControl from './ResourceControl';
-import avatar from '~src/img/avatar.png';
+import avatar from '@/img/avatar.png';
 
 const signInApi = new AuthAPI();
 

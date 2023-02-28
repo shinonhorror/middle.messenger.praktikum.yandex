@@ -1,4 +1,4 @@
-import Component from '~src/services/Component';
+import Component from '../services/Component';
 
 export default function render(
   query: string,

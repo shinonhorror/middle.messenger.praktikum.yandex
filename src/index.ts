@@ -1,11 +1,11 @@
-import '../style/index.scss';
-import Login from '~src/layouts/login';
-import { ErrorClass } from '~src/layouts/errors';
-import Signin from '~src/layouts/signup';
-import Router from '~src/services/Router';
-import { ProfileClass } from '~src/layouts/profile';
-import { ChatClass } from '~src/layouts/chat';
-import AuthControl from '~src/controllers/AuthControl';
+import '@/style/index.scss';
+import Login from '@/layouts/login';
+import { ErrorClass } from '@/layouts/errors';
+import Signin from '@/layouts/signup';
+import { ProfileClass } from '@/layouts/profile';
+import { ChatClass } from '@/layouts/chat';
+import AuthControl from '@/controllers/AuthControl';
+import router from '@/services/Router';
 
 enum Routes {
   Log = '/',
@@ -18,7 +18,6 @@ enum Routes {
   Err = '/500',
 }
 
-const router = new Router();
 window.addEventListener('DOMContentLoaded', async () => {
   router
     .use(Routes.Log, Login)

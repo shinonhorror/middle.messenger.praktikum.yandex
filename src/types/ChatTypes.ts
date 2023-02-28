@@ -4,6 +4,7 @@ export interface LastMessageType {
   content: string;
   id: number;
   time: string;
+  user: UserType;
 }
 export interface ChatType {
   avatar?: string;
@@ -42,8 +43,7 @@ export interface DataMessage {
 }
 
 export type MessageItemType = {
-  mess?: Array<Message>;
-  active?: Array<ChatType>;
+  mess: Array<Message>;
 };
 
 export interface DeleteChat {

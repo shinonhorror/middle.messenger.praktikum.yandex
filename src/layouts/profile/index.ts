@@ -1,18 +1,21 @@
 import tpl from './profile';
-import avatar from '~src/img/avatar.png';
-import Component from '../../services/Component';
-import BaseButton from '../../components/baseButton/index';
-import inputDataPassword from '~src/data/password';
+import avatar from '@/img/avatar.png';
+import Component from '@/services/Component';
+import BaseButton from '@/components/baseButton/index';
+import inputDataPassword from '@/data/password';
 import {
-  Blur, Focus, Input, SubmitPhoto, openModal,
-} from '~src/data/events';
-import LinkButton from '~src/components/linkButton';
-import dataSettings from '~src/data/settings';
-import AuthControl from '~src/controllers/AuthControl';
-import InputBase from '~src/components/input';
-import router from '../../js/index';
-import dataProfile from '~src/data/profile';
-import connect from '~src/services/Connector';
+  Blur, Focus, Input, Submit, openModal,
+} from '@/data/events';
+import LinkButton from '@/components/linkButton';
+import dataSettings from '@/data/settings';
+import AuthControl from '@/controllers/AuthControl';
+import InputBase from '@/components/input';
+import router from '@/index';
+import dataProfile from '@/data/profile';
+import connect from '@/services/Connector';
+import Modal from '@/modules/modal/modal';
+import ResourceControl from '@/controllers/ResourceControl';
+import UserControl from '@/controllers/UserControl';
 
 type ProfileType = {
   user: string;
@@ -21,6 +24,7 @@ type ProfileType = {
   password?: string;
   defaultAvatar: any;
   input: Component;
+  modalAvatar: Component;
   button: Component[] | Component;
   chatLink: Component;
 };
@@ -29,6 +33,53 @@ export class Profile extends Component<ProfileType> {
     super('div', {
       ...props,
       defaultAvatar: avatar,
+      modalAvatar: new Modal({
+        modalClass: 'modal',
+        title: 'Загрузите файл',
+        button: 'Загрузить',
+        events: {
+          change: async (e: InputEvent) => {
+            e.preventDefault();
+            const input = e.target as HTMLInputElement;
+            const formData1 = new FormData();
+            const modal = input.parentNode as HTMLElement;
+            const img = modal.querySelector(
+              '.modal-body_img',
+            ) as HTMLImageElement;
+            if (input.files) {
+              formData1.set('resource', input?.files[0]);
+              const data = await ResourceControl.getCreatedResource(formData1);
+              img.setAttribute(
+                'src',
+                `https://ya-praktikum.tech/api/v2/resources${data.path}`,
+              );
+              img.style.display = 'block';
+              img.style.borderRadius = '50%';
+              img.dataset.id = data.id.toString();
+            }
+          },
+          submit: (e: SubmitEvent) => {
+            e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            if (form.classList.contains('modal-body')) {
+              const formData1 = new FormData();
+              const input = form.querySelector(
+                '.modal-body_input',
+              ) as HTMLInputElement;
+              if (input.files) {
+                formData1.set('avatar', input?.files[0]);
+                UserControl.changeAvatar(formData1);
+                const modal = document.getElementById('openModal');
+                if (modal) {
+                  modal.classList.remove('modal-active');
+                }
+                return true;
+              }
+            }
+            return false;
+          },
+        },
+      }),
       chatLink: new LinkButton({
         linkClass: 'profile__back-link',
         title: 'Back',
@@ -88,10 +139,10 @@ export class Profile extends Component<ProfileType> {
       events:
         window.location.pathname === '/settings'
           ? {
-            submit: SubmitPhoto,
+            submit: Submit,
           }
           : {
-            submit: SubmitPhoto,
+            submit: Submit,
             focus: Focus,
             blur: Blur,
             input: Input,
@@ -123,10 +174,10 @@ export class Profile extends Component<ProfileType> {
     if (!this._props.events) {
       return;
     }
+    const { focus, blur, input } = this._props.events as {
+      [key: string]: () => void;
+    };
     this._element.querySelectorAll('input').forEach((a) => {
-      const { focus, blur, input } = this._props.events as {
-        [key: string]: () => void;
-      };
       a.addEventListener('focus', focus);
       a.addEventListener('blur', blur);
       a.addEventListener('input', input);
@@ -143,10 +194,10 @@ export class Profile extends Component<ProfileType> {
     if (!this._props.events) {
       return;
     }
+    const { focus, blur, input } = this._props.events as {
+      [key: string]: () => void;
+    };
     this._element.querySelectorAll('input').forEach((a) => {
-      const { focus, blur, input } = this._props.events as {
-        [key: string]: () => void;
-      };
       a.removeEventListener('focus', focus);
       a.removeEventListener('blur', blur);
       a.removeEventListener('input', input);

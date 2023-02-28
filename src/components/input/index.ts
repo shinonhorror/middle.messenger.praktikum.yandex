@@ -1,6 +1,6 @@
 import tpl from './input';
 
-import Component from '../../services/Component';
+import Component from '@/services/Component';
 
 type InputBaseType = {
   data: Array<{ [key: string]: string }>;

@@ -1,6 +1,6 @@
 import tpl from './button';
 
-import Component from '../../services/Component';
+import Component from '@/services/Component';
 
 type BaseButtonType = {
   buttonClass: string;

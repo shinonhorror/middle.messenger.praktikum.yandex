@@ -40,12 +40,19 @@
     border-radius: 12px;
     outline: 0;
 
+    &_img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
     &_title {
       text-align: center;
       font-weight: 500;
       font-size: 15px;
       line-height: 20px;
-      margin-bottom: 43px;
+      margin-bottom: 20px;
     }
 
     &_input {

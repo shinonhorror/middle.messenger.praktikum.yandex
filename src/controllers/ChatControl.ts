@@ -1,10 +1,15 @@
-import ChatAPI from '~src/api/ChatAPI';
-import { store } from '~src/services/Store';
-import formatData from '~src/utils/data';
+import ChatAPI from '@/api/ChatAPI';
+import { store } from '@/services/Store';
+
 import {
-  ChatType, CreateChat, DeleteChat, UserToChat,
-} from '~src/types/ChatTypes';
-import defaultAvatar from '~src/img/avatar.png';
+  ChatType,
+  CreateChat,
+  DeleteChat,
+  UserToChat,
+} from '@/types/ChatTypes';
+import defaultAvatar from '@/img/avatar.png';
+import WebSocketControl from './WebSocketControl';
+import { formatData, formatMonth } from '@/utils/dateFormatter';
 
 const chatApi = new ChatAPI();
 
@@ -14,7 +19,16 @@ class ChatControl {
       const chat = await chatApi.request('');
       chat.forEach((item: ChatType) => {
         if (item.last_message) {
-          item.last_message.time = formatData(item.last_message.time);
+          const dateNow = new Date(Date.now()).toString();
+          const day = formatMonth(dateNow);
+          const messageDay = formatMonth(item.last_message.time);
+          const messageTime = formatData(
+            item.last_message.time,
+          );
+          item.last_message.time = `${day !== messageDay ? messageDay : ''} ${messageTime}`;
+          if (item.last_message.user.display_name === store.getState().user.display_name) {
+            item.last_message.user.display_name = 'Вы';
+          }
         }
         if (!item.avatar) {
           item.defaultAvatar = defaultAvatar;
@@ -39,9 +53,12 @@ class ChatControl {
     try {
       await chatApi.delete(id);
       await this.getChats();
-      store.set('mess', undefined);
       const activeChat = store.getState().chat[0] as any;
       store.set('active', activeChat || undefined);
+      store.set('mess', undefined);
+      if (activeChat) {
+        WebSocketControl.init(store.getState().user.id, activeChat.id);
+      }
     } catch (e: any) {
       console.error(e);
       alert('У вас нет доступа к удалению чата');

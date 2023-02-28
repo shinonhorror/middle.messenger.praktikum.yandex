@@ -1,13 +1,13 @@
 import tpl from './dropdown';
-import Component from '../../services/Component';
-import ChatControl from '~src/controllers/ChatControl';
-import { openModal } from '~src/data/events';
-import UserControl from '~src/controllers/UserControl';
+import Component from '@/services/Component';
+import ChatControl from '@/controllers/ChatControl';
+import { openModal } from '@/data/events';
+import UserControl from '@/controllers/UserControl';
 import { UserSearchClass } from '../userSearch';
-import BaseButton from '../baseButton';
-import { ChatType } from '~src/types/ChatTypes';
-import LinkButton from '../linkButton';
-import connect from '~src/services/Connector';
+import BaseButton from '@/components/baseButton';
+import { ChatType } from '@/types/ChatTypes';
+import LinkButton from '@/components/linkButton';
+import connect from '@/services/Connector';
 
 type DropdownType = {
   btnClass: string;

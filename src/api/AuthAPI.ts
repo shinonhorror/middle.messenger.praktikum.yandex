@@ -1,4 +1,4 @@
-import { UserSign } from '~src/types/UserTypes';
+import { UserSign } from '@/types/UserTypes';
 import HTTPTransport from './HTTPTransport';
 
 const signInAPIInstance = new HTTPTransport('/auth');

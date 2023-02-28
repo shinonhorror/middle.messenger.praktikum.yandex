@@ -1,9 +1,13 @@
-import AuthControl from '~src/controllers/AuthControl';
-import ChatControl from '~src/controllers/ChatControl';
-import UserControl from '~src/controllers/UserControl';
-import WebSocketControl from '~src/controllers/WebSocketControl';
-import validator from '~src/services/Validator';
-import { UserSign, UserUpdatePassType, UserUpdateType } from '~src/types/UserTypes';
+import AuthControl from '@/controllers/AuthControl';
+import ChatControl from '@/controllers/ChatControl';
+import UserControl from '@/controllers/UserControl';
+import WebSocketControl from '@/controllers/WebSocketControl';
+import validator from '@/services/Validator';
+import {
+  UserSign,
+  UserUpdatePassType,
+  UserUpdateType,
+} from '@/types/UserTypes';
 
 export async function Submit(e: SubmitEvent): Promise<boolean> {
   e.preventDefault();
@@ -18,6 +22,9 @@ export async function Submit(e: SubmitEvent): Promise<boolean> {
     }
   });
   if (isValid === false) {
+    return false;
+  }
+  if (form.classList.contains('modal-body')) {
     return false;
   }
   Array.from(mas).forEach((item) => {
@@ -43,21 +50,6 @@ export async function Submit(e: SubmitEvent): Promise<boolean> {
   }
   console.log(objectData);
   return true;
-}
-
-export async function SubmitPhoto(e: SubmitEvent): Promise<boolean> {
-  e.preventDefault();
-  const form = e.target as HTMLFormElement;
-  if (form.classList.contains('modal-body')) {
-    const formData1 = new FormData();
-    const input = form.querySelector('.modal-body_input') as HTMLInputElement;
-    if (input.files) {
-      formData1.set('avatar', input?.files[0]);
-      UserControl.changeAvatar(formData1);
-      return true;
-    }
-  }
-  return Submit(e);
 }
 
 export function Focus(e: InputEvent): void {

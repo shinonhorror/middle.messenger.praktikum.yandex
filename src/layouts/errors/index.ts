@@ -1,9 +1,9 @@
 import tpl from './errors';
-import Component from '../../services/Component';
-import router from '~src/js';
-import LinkButton from '~src/components/linkButton';
-import connect from '~src/services/Connector';
-import { UserType } from '~src/types/UserTypes';
+import Component from '@/services/Component';
+import router from '@/index';
+import LinkButton from '@/components/linkButton';
+import connect from '@/services/Connector';
+import { UserType } from '@/types/UserTypes';
 
 type ErrorType = {
   err?: boolean;

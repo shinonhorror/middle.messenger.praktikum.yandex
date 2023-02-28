@@ -1,4 +1,4 @@
-import set from '~src/utils/set';
+import { set } from '@/utils/helpers';
 import EventBus from './EventBus';
 
 export enum StoreEvents {

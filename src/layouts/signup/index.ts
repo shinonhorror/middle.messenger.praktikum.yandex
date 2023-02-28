@@ -1,14 +1,14 @@
 import tpl from './signin';
 
-import Component from '../../services/Component';
-import inputDataSignin from '~src/data/signin';
+import Component from '@/services/Component';
+import inputDataSignin from '@/data/signin';
 import {
   Blur, Focus, Input, Submit,
-} from '~src/data/events';
-import BaseButton from '~src/components/baseButton';
-import InputBase from '~src/components/input';
-import router from '~src/js';
-import LinkButton from '~src/components/linkButton';
+} from '@/data/events';
+import BaseButton from '@/components/baseButton';
+import InputBase from '@/components/input';
+import router from '@/index';
+import LinkButton from '@/components/linkButton';
 
 type SigninType = {
   title: string;

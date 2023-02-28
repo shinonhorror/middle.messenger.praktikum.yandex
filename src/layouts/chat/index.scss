@@ -1,169 +1,5 @@
 @import "../../style/vars";
 
-.modal_avatar {
-  &-active {
-    opacity: 1;
-    pointer-events: auto;
-    overflow-y: auto;
-  }
-
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgb(0 0 0 / 40%);
-  z-index: 10;
-  transition: opacity 200ms ease-in;
-  pointer-events: none;
-  margin: 0;
-  padding: 0;
-  opacity: 0;
-  padding-top: 231px;
-  padding-left: 70px;
-}
-
-.modal-body {
-  width: 340px;
-
-  &_search {
-    background: $background-chat-input;
-    border-radius: 30px;
-    outline: none;
-    border: none;
-    padding: 10px;
-    width: 80%;
-    margin-bottom: 20px;
-
-    &::placeholder {
-      text-align: center;
-    }
-  }
-
-  &_result {
-    width: 100%;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-
-    &__item {
-      display: flex;
-      flex-direction: row;
-      padding: 10px;
-      align-items: center;
-
-      &-role {
-        color: $inactive-link;
-        font-size: 12px;
-        margin-left: auto;
-      }
-
-      img {
-        margin-right: 10px;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-      }
-
-      cursor: pointer;
-
-      &:hover {
-        background: $background-chat-message;
-        color: $button;
-      }
-    }
-  }
-}
-
-.dropdown {
-  float: right;
-  overflow: hidden;
-
-  &__content {
-    display: none;
-    position: absolute;
-    background: #fff;
-    box-shadow: 0 0 6px rgb(0 0 0 / 14%);
-    border-radius: 12px;
-    z-index: 1;
-    left: 46vw;
-    padding: 10px 0;
-
-    &:hover {
-      display: block;
-    }
-
-    &-link {
-      &_delete-chat {
-        color: $exit-link;
-      }
-
-      &_info,
-      &_add,
-      &_delete,
-      &_delete-chat {
-        font-size: 12px;
-        line-height: 14px;
-        cursor: pointer;
-        list-style-type: none;
-        padding: 10px 15px;
-        display: block;
-
-        &:hover {
-          background: $background-chat-message;
-          color: $button;
-        }
-      }
-    }
-  }
-
-  &__btn {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-
-    &:hover {
-      color: $button;
-    }
-
-    &:hover + .dropdown__content {
-      display: block;
-    }
-  }
-}
-
-.contextmenu {
-  z-index: 1000;
-  position: fixed;
-  display: none;
-  width: 100px;
-  box-shadow: 0 0 6px rgb(0 0 0 / 14%);
-  border-radius: 6px;
-  background: $background;
-
-  &__list {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 0;
-  }
-
-  &__item {
-    font-size: 10px;
-    padding: 5px;
-    cursor: pointer;
-    color: $inactive-link;
-
-    &:hover {
-      background: $background-chat-input;
-    }
-  }
-
-  &.active {
-    display: block;
-  }
-}
-
 .chat {
   display: flex;
   flex-direction: row;
@@ -321,6 +157,7 @@
       }
 
       &_message {
+        z-index: -1;
         margin-bottom: 10px;
         background: $background-chat-input;
         border-radius: 10px;
@@ -329,6 +166,17 @@
         flex-basis: content;
         display: block;
         max-width: 80%;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          right: 55px;
+          border-width: 4px;
+          border-style: solid;
+          border-color: transparent  transparent $background-chat-input transparent;
+        }
       }
 
       &_text {
@@ -352,20 +200,33 @@
       align-items: center;
       height: 86vh;
       overflow-y: scroll;
+
+      @supports (scrollbar-gutter: stable) {
+        overflow: auto;
+        scrollbar-gutter: stable;
+      }
     }
 
     &-date {
-      margin-top: 10px;
       text-align: center;
-      margin-bottom: 38px;
       color: $inactive-link;
       font-weight: 500;
       font-size: 12px;
       line-height: 12px;
+      margin-bottom: 10px;
     }
 
     &-your {
       &_message {
+        &-link {
+          cursor: pointer;
+        }
+
+        &-image {
+          max-width: 300px;
+        }
+
+        z-index: -1;
         max-width: 80%;
         margin-bottom: 10px;
         align-self: flex-end;
@@ -375,6 +236,19 @@
         border-radius: 10px;
         display: block;
         margin-right: 10px;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          right: -3px;
+          border-width: 5px;
+          border-style: solid;
+          border-color:
+            transparent transparent $background-chat-message
+            $background-chat-message;
+        }
       }
 
       &_date {
